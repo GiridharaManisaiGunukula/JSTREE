@@ -1,0 +1,3443 @@
+$(document).ready(function() {
+    $(".pop1")
+        .on("mouseenter", function() {
+            var _this = this;
+            $(this).popover("show");
+            $(".popover").on("mouseleave", function() {
+                $(_this).popover("hide");
+            });
+        })
+        .on("mouseleave", function() {
+            var _this = this;
+            setTimeout(function() {
+                if (!$(".popover:hover").length) {
+                    $(_this).popover("hide");
+                }
+            }, 300);
+            $("#Userprofileid").click(function() {
+                $(".popover").addClass("d-none");
+            });
+        });
+    $('a[data-toggle="tab"]').on("shown.bs.tab", function(e) {
+        $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+    });
+
+    $("#jstree_demo_div").jstree({
+        core: {
+            data: [{
+                    id: "ajson1",
+                    parent: "#",
+                    text: "Diagnosis",
+                    icon: "material-symbols-outlined plusfolder",
+                },
+                {
+                    id: "ajson2",
+                    parent: "#",
+                    text: "Patient Details",
+                    icon: "material-symbols-outlined plusfolder",
+                },
+                {
+                    id: "ajson3",
+                    parent: "#",
+                    text: "Charges",
+                    icon: "material-symbols-outlined plusfolder",
+                },
+                {
+                    id: "ajson4",
+                    parent: "ajson3",
+                    text: "Base Rate",
+                    icon: "material-symbols-outlined emptyfolder",
+                },
+                {
+                    id: "ajson5",
+                    parent: "ajson3",
+                    text: "Charge Category",
+                    icon: "material-symbols-outlined emptyfolder",
+                },
+                {
+                    id: "ajson6",
+                    parent: "#",
+                    text: "Encounter Details",
+                    icon: "material-symbols-outlined plusfolder",
+                },
+                {
+                    id: "ajson7",
+                    parent: "#",
+                    text: "Encounter Details",
+                    icon: "material-symbols-outlined plusfolder",
+                },
+            ],
+        },
+    });
+
+    $("#jstree_demo_div")
+        .on("open_node.jstree", function(evt, data) {
+            if (data.node.id == "ajson3") {
+                data.instance.set_icon(
+                    data.node,
+                    "material-symbols-outlined minusfolder"
+                );
+            }
+        })
+        .on("close_node.jstree", function(evt, data) {
+            data.instance.set_icon(data.node, "material-symbols-outlined plusfolder");
+            $("#jstree_demo_div12").jstree("destroy");
+            $("#jstree_demo_div1").jstree("destroy");
+        });
+    $("#jstree_demo_div").on("select_node.jstree", function(e, data) {
+        if (data.node.id == "ajson4") {
+            $("#jstree_demo_div12").jstree("destroy");
+            $("#jstree_demo_div1").jstree({
+                core: {
+                    data: [{
+                            id: "ajson11",
+                            parent: "#",
+                            text: "Not List",
+                            icon: "material-symbols-outlined emptyfolder",
+                        },
+                        {
+                            id: "ajson12",
+                            parent: "#",
+                            text: "In List",
+                            icon: "material-symbols-outlined emptyfolder",
+                        },
+                    ],
+                },
+            });
+        } else if (data.node.id == "ajson5") {
+            $("#jstree_demo_div1").jstree("destroy");
+            $("#jstree_demo_div12").jstree({
+                core: {
+                    data: [{
+                            id: "ajson11",
+                            parent: "#",
+                            text: "Equalto(x=y)",
+                            icon: "material-symbols-outlined emptyfolder",
+                        },
+                        {
+                            id: "ajson12",
+                            parent: "#",
+                            text: "Greater than(x>y)",
+                            icon: "material-symbols-outlined emptyfolder",
+                        },
+                        {
+                            id: "ajson13",
+                            parent: "#",
+                            text: "Greater than or Equal to (x>=y)",
+                            icon: "material-symbols-outlined emptyfolder",
+                        },
+                        {
+                            id: "ajson14",
+                            parent: "#",
+                            text: "Lesser than(x<y)",
+                            icon: "material-symbols-outlined emptyfolder",
+                        },
+                        {
+                            id: "ajson15",
+                            parent: "#",
+                            text: "Lesser than or Equal to (x<=y)",
+                            icon: "material-symbols-outlined emptyfolder",
+                        },
+                    ],
+                },
+            });
+        }
+    });
+
+    $("#jstree_demo_div2").jstree({
+        plugins: ["wholerow", "checkbox", "types"],
+        core: {
+            data: [{
+                    id: "ajson11",
+                    parent: "#",
+                    text: "CCm Category",
+                    icon: "material-symbols-outlined emptyfolder",
+                },
+                {
+                    id: "ajson12",
+                    parent: "#",
+                    text: "Medication",
+                    icon: "material-symbols-outlined emptyfolder",
+                },
+                {
+                    id: "ajson13",
+                    parent: "#",
+                    text: "DRG Category",
+                    icon: "material-symbols-outlined emptyfolder",
+                },
+                {
+                    id: "ajson14",
+                    parent: "#",
+                    text: "Room Difference Charges",
+                    icon: "material-symbols-outlined emptyfolder",
+                },
+                {
+                    id: "ajson15",
+                    parent: "#",
+                    text: "Cardiopulmonary",
+                    icon: "material-symbols-outlined emptyfolder",
+                },
+                {
+                    id: "ajson16",
+                    parent: "#",
+                    text: "Cardiopulmonary",
+                    icon: "material-symbols-outlined emptyfolder",
+                },
+            ],
+        },
+    });
+
+    $(document).on("click", ".ipdasboardpopover", function() {
+        $(".popover").popover("hide");
+    });
+    $(".btnfull").click(function() {
+        var alertboxtable = $("#alerttable").DataTable();
+        alertboxtable.columns.adjust().draw();
+        var rulestables1 = $("#Rulestable").DataTable();
+        rulestables1.columns.adjust().draw();
+        var payerdetailsruletable = $("#payerdetailsruletable").DataTable();
+        payerdetailsruletable.columns.adjust().draw();
+        var payerdetailsattachtable = $("#payerdetailsattachtable").DataTable();
+        payerdetailsattachtable.columns.adjust().draw();
+        var Criteriatabledata = $("#Criteriatabledata").DataTable();
+        Criteriatabledata.columns.adjust().draw();
+        var example122 = $("#example1").DataTable();
+        example122.columns.adjust().draw();
+        var Criteriadatatable = $("#Criteriadatatable").DataTable();
+        Criteriadatatable.columns.adjust().draw();
+        var Criteriatableexample12 = $("#Criteriatableexample1").DataTable();
+        Criteriatableexample12.columns.adjust().draw();
+        var Newpolicycanvas = $("#Newpolicycanvas").DataTable();
+        Newpolicycanvas.columns.adjust().draw();
+        var Newpolicycanvas1 = $("#Newpolicycanvas1").DataTable();
+        Newpolicycanvas1.columns.adjust().draw();
+        var PackageCompTable = $("#PackageCompTable").DataTable();
+        PackageCompTable.columns.adjust().draw();
+        var Medipackinfo = $("#Medi-packinfo").DataTable();
+        Medipackinfo.columns.adjust().draw();
+        var billattchtable = $("#billattchtable").DataTable();
+        billattchtable.columns.adjust().draw();
+    });
+    $(".datablewidthselect").click(function() {
+        var Rulestable12 = $("#Rulestable").DataTable();
+        Rulestable12.columns.adjust().draw();
+        var example1 = $("#example1").DataTable();
+        example1.columns.adjust().draw();
+        var Criteriatableexample1 = $("#Criteriatableexample1").DataTable();
+        Criteriatableexample1.columns.adjust().draw();
+        var payerdetailsattachtable = $("#payerdetailsattachtable").DataTable();
+        payerdetailsattachtable.columns.adjust().draw();
+        var payerdetailsruletable = $("#payerdetailsruletable").DataTable();
+        payerdetailsruletable.columns.adjust().draw();
+        var Criteriatabledata = $("#Criteriatabledata").DataTable();
+        Criteriatabledata.columns.adjust().draw();
+        var Newpolicycanvas = $("#Newpolicycanvas").DataTable();
+        Newpolicycanvas.columns.adjust().draw();
+        var Newpolicycanvas1 = $("#Newpolicycanvas1").DataTable();
+        Newpolicycanvas1.columns.adjust().draw();
+        var PackageCompTable = $("#PackageCompTable").DataTable();
+        PackageCompTable.columns.adjust().draw();
+        var billattchtable = $("#billattchtable").DataTable();
+        billattchtable.columns.adjust().draw();
+    });
+    $("#CustomRuleoffCriteriaModal").on("shown.bs.modal", function() {
+        var table = $("#example1").DataTable();
+        table.columns.adjust().draw();
+    });
+
+    $('a[data-toggle="tab"]').on("shown.bs.tab", function(e) {
+        $($.fn.dataTable.tables(true)).DataTable().columns.adjust();
+    });
+
+    $("[data-bs-toggle='tooltip']").tooltip();
+
+    var table = $("#Attachments1").DataTable({
+        data: [{
+                Name: "Encounter",
+                ModifiedOn: "11/02/2023 11:20",
+                ModifiedBy: "Giridhara Manisai Gunukula Naidu Reddy",
+                Size: "981 KB",
+            },
+            {
+                Name: "MRI.jpeg",
+                ModifiedOn: "11/02/2023 11:20",
+                ModifiedBy: "Piyush Pandit",
+                Size: "981 KB",
+            },
+            {
+                Name: "Bills",
+                ModifiedOn: "11/02/2023 11:20",
+                ModifiedBy: "Piyush Pandit",
+                Size: "981 KB",
+            },
+            {
+                Name: "Charge_Approval_Abilify_10mg.jpeg",
+                ModifiedOn: "11/02/2023 11:20",
+                ModifiedBy: "Piyush Pandit",
+                Size: "981 KB",
+            },
+            {
+                Name: "Charge_Approval_Abilify_30mg.jpeg",
+                ModifiedOn: "11/02/2023 11:20",
+                ModifiedBy: "Piyush Pandit",
+                Size: "981 KB",
+            },
+            {
+                Name: "Charge_Approval_Abilify_50mg.jpeg",
+                ModifiedOn: "11/02/2023 11:20",
+                ModifiedBy: "Piyush Pandit",
+                Size: "981 KB",
+            },
+        ],
+        paging: false,
+        searching: false,
+        info: false,
+        scrollX: true,
+        order: [],
+        columns: [{
+                className: "toggleicon pointer",
+                data: null,
+                defaultContent: "",
+            },
+            {
+                data: "Name",
+            },
+            {
+                data: "ModifiedOn",
+            },
+            {
+                data: "ModifiedBy",
+            },
+            {
+                data: "Size",
+            },
+            {
+                data: "",
+            },
+        ],
+        columnDefs: [{
+                target: 0,
+                width: 20,
+                orderable: false,
+                searchable: false,
+            },
+            {
+                target: 2,
+                orderable: false,
+                searchable: false,
+            },
+            {
+                target: 1,
+                orderable: false,
+                searchable: false,
+                width: 700,
+                render: function(data) {
+                    if (data == "Encounter") {
+                        return `<div class="d-flex flex-row align-items-center"> <span class="material-symbols-outlined text-white border-0 bg-warning rounded p-1 h-100 me-3">folder</span><span class="subtitle fw500">${data}</span></div>`;
+                    } else if (data == "MRI.jpeg") {
+                        return `<div class="d-flex flex-row align-items-center"><span class="material-symbols-outlined text-white border-0 rounded fs-4 me-2 p-1 bg-purple">image</span><span class="subtitle">${data}</span></div>`;
+                    } else if (data == "Bills") {
+                        return `<div class="d-flex flex-row align-items-center"> <span class="material-symbols-outlined text-white border-0 bg-warning rounded p-1 h-100 me-3">folder</span><span class="subtitle fw500">${data}</span></div>`;
+                    } else {
+                        return `<div class="d-flex flex-row align-items-center"><span class="material-symbols-outlined text-white border-0 rounded fs-4 me-2 p-1 bg-purple">image</span><span class="subtitle">${data}</span></div>`;
+                    }
+                },
+            },
+            {
+                target: 3,
+                width: 40,
+                orderable: false,
+                searchable: false,
+                render: function(data) {
+                    return `<div class="d-flex flex-row align-items-center">${data}</div>`;
+                },
+            },
+            {
+                target: 4,
+                width: 50,
+                orderable: false,
+                searchable: false,
+            },
+            {
+                target: 5,
+                orderable: false,
+                searchable: false,
+                className: "dt-body-center dt-head-center",
+                defaultContent: "",
+                render: function() {
+                    return `<span class="material-symbols-outlined text-black">more_horiz</span>`;
+                },
+            },
+        ],
+        fixedColumns: {
+            left: 0,
+            right: 1,
+        },
+    });
+
+    $("#Attachments-Table").hide();
+    $("#save").click(function() {
+        $("#Attachments-Table").show();
+        $("#Attachments1").DataTable().columns.adjust();
+        $("#Attachments-Blank").hide();
+
+        // $('#Attachments1 tbody').find("tr").eq(0).find('td').eq(0).removeClass('toggleicon');
+        $("#Attachments1 tbody")
+            .find("tr")
+            .eq(1)
+            .find("td")
+            .eq(0)
+            .removeClass("toggleicon");
+        $("#Attachments1 tbody")
+            .find("tr")
+            .eq(2)
+            .find("td")
+            .eq(0)
+            .addClass("toggleicon1");
+        $("#Attachments1 tbody")
+            .find("tr")
+            .eq(3)
+            .find("td")
+            .eq(0)
+            .removeClass("toggleicon");
+        $("#Attachments1 tbody")
+            .find("tr")
+            .eq(4)
+            .find("td")
+            .eq(0)
+            .removeClass("toggleicon");
+        $("#Attachments1 tbody")
+            .find("tr")
+            .eq(5)
+            .find("td")
+            .eq(0)
+            .removeClass("toggleicon");
+        $("#Attachments1 tbody")
+            .find("tr")
+            .eq(6)
+            .find("td")
+            .eq(0)
+            .removeClass("toggleicon");
+    });
+
+    // Add event listener for opening and closing details
+    $("#Attachments1 tbody").on("click", "td.toggleicon1", function() {
+        var tr = $("#Attachments1 tbody").find("tr").eq(2);
+        var row = table.row(tr);
+        if (row.child.isShown()) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass("shown");
+        } else {
+            // Open this row
+            row.child(format(row.data())).show();
+            tr.addClass("shown");
+        }
+    });
+
+    //Child Row Create
+    function format(d) {
+        return $(
+            `<tr class="pointer">
+              <td></td>
+              <td><div class="d-flex flex-row align-items-center ms-4"><span class="material-symbols-outlined text-white border-0 rounded fs-4 me-2 p-1 bg-purple">image</span><span class="subtitle">DIR-14711.png</span></div></td>
+              <td><span>02/06/2022 08:28</span></td>
+              <td>Piyush Pandit</td>
+              <td>909 KB</td>
+              <td class="dt-body-center dt-head-center dtfc-fixed-right" style="position: sticky; right: 0px;"><span class="material-symbols-outlined text-black">more_horiz</span></td>
+            </tr><tr class="pointer">
+              <td></td>
+              <td><div class="d-flex flex-row align-items-center ms-4"><span class="material-symbols-outlined text-white border-0 rounded fs-4 me-2 p-1 bg-purple">image</span><span class="subtitle">DIR-14712.png</span></div></td>
+              <td>02/06/2022 08:28</td>
+              <td>Piyush Pandit</td>
+              <td>998 KB</td>
+              <td class="dt-body-center dt-head-center dtfc-fixed-right" style="position: sticky; right: 0px;"><span class="material-symbols-outlined text-black">more_horiz</span></td>
+            </tr><tr class="pointer">
+              <td></td>
+              <td><div class="d-flex flex-row align-items-center ms-4"><span class="material-symbols-outlined text-white border-0 rounded fs-4 me-2 p-1 bg-purple">image</span><span class="subtitle">DIR-14713.png</span></div></td>
+              <td>02/06/2022 08:28</td>
+              <td>Piyush Pandit</td>
+              <td>113 KB</td>
+              <td class="dt-body-center dt-head-center dtfc-fixed-right" style="position: sticky; right: 0px;"><span class="material-symbols-outlined text-black">more_horiz</span></td>
+            </tr><tr class="pointer">
+              <td></td>
+              <td><div class="d-flex flex-row align-items-center ms-4"><span class="material-symbols-outlined text-white border-0 rounded fs-4 me-2 p-1 bg-purple">image</span><span class="subtitle">DIR-14714.png</span></div></td>
+              <td>02/06/2022 08:28</td>
+              <td>Piyush Pandit</td>
+              <td>101 KB</td>
+              <td class="dt-body-center dt-head-center dtfc-fixed-right" style="position: sticky; right: 0px;"><span class="material-symbols-outlined text-black">more_horiz</span></td>
+            </tr><tr class="pointer">
+              <td></td>
+              <td><div class="d-flex flex-row align-items-center ms-4"><span class="material-symbols-outlined text-white border-0 rounded fs-4 me-2 p-1 bg-purple">image</span><span class="subtitle">DIR-14715.png</span></div></td>
+              <td>02/06/2022 08:28</td>
+              <td>Piyush Pandit</td>
+              <td>113 KB</td>
+              <td class="dt-body-center dt-head-center dtfc-fixed-right" style="position: sticky; right: 0px;"><span class="material-symbols-outlined text-black">more_horiz</span></td>
+            </tr>
+            `
+        ).toArray();
+    }
+
+    $("#payer-det1").hide();
+    $("#Select").click(function() {
+        $("#test").prop("disabled", false);
+        $("#testing1").prop("disabled", false);
+    });
+    $("#test").click(function() {
+        $("#payer-det2").hide();
+        $("#payer-det1").show();
+        $(".payeractionbtn").toggleClass("d-none");
+    });
+
+    $(".payerdetail").on({
+        mouseenter: function() {
+            $(this).find(".payeraction").removeClass("d-none");
+        },
+        mouseleave: function() {
+            $(this).find(".payeraction").addClass("d-none");
+        },
+    });
+
+    $(".diagdetail").on({
+        mouseenter: function() {
+            $(this).find(".diagaction").removeClass("d-none");
+        },
+        mouseleave: function() {
+            $(this).find(".diagaction").addClass("d-none");
+        },
+    });
+
+    $(
+        "#diagnosisdetails1,#payercanvas1,#chargestabbtn,#mscharge,#sevcharge"
+    ).click(function() {
+        var testing = $(window).width();
+        if (testing <= 850) {
+            $(".offcanvas").addClass("fullscreen");
+            $(".btnfull").text("close_fullscreen");
+        } else {
+            $(".offcanvas").removeClass("fullscreen");
+            $(".btnfull").text("open_in_full");
+        }
+    });
+
+    //Notes
+    $("#Notes-Content").hide();
+    $("#notebtn").click(function() {
+        $("#No-Notes").hide();
+        $("#Notes-Content").show();
+    });
+    $("#Notes-Saving").hide();
+    $("#NotesSavebtn").click(function() {
+        $("#Notes-Content").hide();
+        $("#Notes-Saving").show();
+    });
+
+    //Charges//
+    // $("#NewChargesDetails").hide();
+    $("#ChargeUpdated").click(function() {
+        $("#NewChargeContent").addClass("d-none");
+        $("#NewChargesDetailsContent").removeClass("d-none");
+        $("#chargestable").DataTable().columns.adjust().draw();
+    });
+    // Bills//
+    $("#BillsUpdate").click(function() {
+        $("#NewDetailsBills").addClass("d-none");
+        $("#NewBillsDetailsContent").removeClass("d-none");
+        $("#paymentduetable").DataTable().columns.adjust().draw();
+        $("#refundduetable").DataTable().columns.adjust().draw();
+        $("#cancelledbillstable").DataTable().columns.adjust().draw();
+    });
+    //Collections//
+    $("#CollectionsUpdate").click(function() {
+        $("#NewCollectionsDetails").addClass("d-none");
+        $("#NewCollectionsdetailsContent").removeClass("d-none");
+        $("#BillCollections").DataTable().columns.adjust().draw();
+    });
+    // StayHistory//
+    $("#StayHistoryUpdate").click(function() {
+        $("#NewStayHistoryDetails").addClass("d-none");
+        $("#NewStayHistoryContentDetails").removeClass("d-none");
+        $("#stayhistorytable").DataTable().columns.adjust().draw();
+    });
+
+    //Medication canvas table show ------- Jerin
+    $("#medi-hide").hide();
+    $("#medi-show").click(function() {
+        $("#medi-hide").show();
+    });
+    // Avtive Approval Tab --------- Jerin
+    $("#active-table").hide();
+    $("#active-tab").click(function() {
+        $("#dash-hide").hide();
+        $("#active-table").show();
+    });
+
+    $("#service-packinfo").DataTable({
+        data: [{
+                "Sl No": "1",
+                Name: "All Charges",
+                "Validity Period": "02/06/2022 - 01/09/2022",
+                Quantity: "12",
+                Amount: "0.00",
+            },
+            {
+                "Sl No": "2",
+                Name: "Medications",
+                "Validity Period": "02/06/2022 - 01/09/2022",
+                Quantity: "0",
+                Amount: "200.00",
+            },
+        ],
+        columns: [
+            { data: "Sl No" },
+            { data: "Name" },
+            { data: "Validity Period" },
+            { data: "Quantity" },
+            { data: "Amount" },
+            { data: "Action" },
+        ],
+        paging: false,
+        searching: false,
+        info: false,
+        orderable: false,
+        fixedColumns: {
+            left: 0,
+            right: 1,
+        },
+        scrollX: true,
+        columnDefs: [{
+                targets: 1,
+                render: function(data) {
+                    return `<a href="#" class="text-info">${data}</a>`;
+                },
+            },
+
+            {
+                targets: 5,
+                defaultContent: "",
+                className: "dt-head-center dt-body-center",
+                render: function(data) {
+                    return `<span class="material-symbols-outlined fs-4 pointer text-center"id="ServiceEdit" aria-controls="offcanvasRight">edit</span><span class="material-symbols-outlined fs-4 ms-1 text-danger">delete</span>`;
+                },
+            },
+        ],
+    });
+    //Alert Table
+    $("#alerttable").DataTable({
+        data: [{
+                Code: "26013",
+                Type: "Charge Info",
+                Description: "Charge Code Code 59050 or 59051 is for IP only - Use Code 59020 or 59025",
+            },
+            {
+                Code: "24060",
+                Type: "Patient Info",
+                Description: "Nationality is Not Available in Master",
+            },
+            {
+                Code: "23018",
+                Type: "Charge Info",
+                Description: "For OP there should be any one these Consultation charges like 9,9.01,9.02",
+            },
+            {
+                Code: "31530",
+                Type: "Patient Info",
+                Description: "DHPO Insurance Validity has expired on 30/06/2022",
+            },
+        ],
+        columns: [{ data: "Code" }, { data: "Type" }, { data: "Description" }],
+        paging: false,
+        searching: false,
+        info: false,
+        scrollX: true,
+        order: [],
+        scrollCollapse: true,
+        responsive: true,
+        columnDefs: [{
+                targets: 0,
+                searchable: false,
+                orderable: false,
+                render: function(data) {
+                    return `<a href="#"class='text-info text-decoration-none'>${data}</a>`;
+                },
+            },
+            {
+                targets: 1,
+                searchable: false,
+                orderable: false,
+            },
+            {
+                targets: 2,
+                searchable: false,
+                orderable: false,
+            },
+        ],
+    });
+    //payerdetailsattachtable
+    $("#payerdetailsattachtable").DataTable({
+        data: [{
+                Name: "Insurance.pdf",
+                "Modified On": "02/06/2022 08:28",
+                "Modified By": "Shaikh Mohammed",
+                Size: "68KB",
+            },
+            {
+                Name: "Health_Plan.jpg",
+                "Modified On": "02/06/2022 08:28",
+                "Modified By": "Shaikh Mohammed",
+                Size: "68KB",
+            },
+        ],
+        columns: [
+            { data: "Name" },
+            { data: "Modified On" },
+            { data: "Modified By" },
+            { data: "Size" },
+        ],
+        columnDefs: [{
+            targets: 0,
+            orderable: false,
+            className: "dt-body-center",
+            defaultContent: "",
+            render: function(data) {
+                if (data == "Insurance.pdf") {
+                    return `<span class="material-symbols-outlined float-start text-white border-0 bg-warning rounded p-1 h-100">folder</span><span class="subtitle fw500 ms-2 align-items-center">${data}</span>`;
+                } else if (data == "Health_Plan.jpg") {
+                    return `<span class="material-symbols-outlined float-start text-white border-0 bg-warning rounded p-1 h-100">folder</span><span class="subtitle fw500 ms-2 align-items-center">${data}</span>`;
+                } else {
+                    return `<span class="material-symbols-outlined float-start text-white border-0 bg-warning rounded p-1 h-100">folder</span><span class="subtitle fw500 ms-2 align-items-center">${data}</span>`;
+                }
+            },
+        }, ],
+
+        paging: false,
+        searching: false,
+        info: false,
+        scrollX: true,
+        scrollCollapse: true,
+        responsive: true,
+    });
+    //payerdetailsattachtable end
+    $("#BillCollections").DataTable({
+        data: [{
+                "#": "101000006473",
+                Type: "Bill Collection",
+                Date: "02/06/2022 08:28",
+                "Collected By": "John Doe",
+                "Payment Mode": "Cash",
+                "Amount(in AED)": "319.00",
+            },
+            {
+                "#": "101000006473",
+                Type: "Deposit Collection",
+                Date: "02/06/2022 08:28",
+                "Collected By": "John Doe",
+                "Payment Mode": "Cash,Debit Card",
+                "Amount(in AED)": "319.00",
+            },
+            {
+                "#": "101000006473",
+                Type: "Bill Collection",
+                Date: "02/06/2022 08:28",
+                "Collected By": "John Doe",
+                "Payment Mode": "Cash",
+                "Amount(in AED)": "319.00",
+            },
+            {
+                "#": "101000006473",
+                Type: "Bill Collection",
+                Date: "02/06/2022 08:28",
+                "Collected By": "John Doe",
+                "Payment Mode": "Cash",
+                "Amount(in AED)": "319.00",
+            },
+            {
+                "#": "101000006473",
+                Type: "Bill Collection",
+                Date: "02/06/2022 08:28",
+                "Collected By": "John Doe",
+                "Payment Mode": "Cash",
+                "Amount(in AED)": "319.00",
+            },
+            {
+                "#": "101000006473",
+                Type: "Bill Collection",
+                Date: "02/06/2022 08:28",
+                "Collected By": "John Doe",
+                "Payment Mode": "Cash",
+                "Amount(in AED)": "319.00",
+            },
+            {
+                "#": "101000006473",
+                Type: "Bill Collection",
+                Date: "02/06/2022 08:28",
+                "Collected By": "John Doe",
+                "Payment Mode": "Cash",
+                "Amount(in AED)": "319.00",
+            },
+            {
+                "#": "101000006473",
+                Type: "Bill Collection",
+                Date: "02/06/2022 08:28",
+                "Collected By": "John Doe",
+                "Payment Mode": "Cash",
+                "Amount(in AED)": "319.00",
+            },
+            {
+                "#": "101000006473",
+                Type: "Bill Collection",
+                Date: "02/06/2022 08:28",
+                "Collected By": "John Doe",
+                "Payment Mode": "Cash",
+                "Amount(in AED)": "319.00",
+            },
+        ],
+        columns: [
+            { data: "" },
+            {
+                data: "#",
+            },
+            {
+                data: "Type",
+            },
+            {
+                data: "Date",
+            },
+            {
+                data: "Collected By",
+            },
+            {
+                data: "Payment Mode",
+            },
+            {
+                data: "Amount(in AED)",
+            },
+            { data: "" },
+        ],
+        columnDefs: [{
+                targets: 0,
+                searchable: false,
+                orderable: false,
+                defaultContent: "",
+                render: function(data) {
+                    return CheckBox();
+                },
+            },
+
+            {
+                targets: 1,
+                searchable: false,
+                orderable: false,
+                render: function(data) {
+                    return `<a href="#"class='text-info text-decoration'>${data}</a>`;
+                },
+            },
+            {
+                targets: 2,
+                searchable: false,
+                orderable: false,
+            },
+            {
+                targets: 3,
+                searchable: false,
+                orderable: true,
+            },
+            {
+                targets: 4,
+                searchable: false,
+                orderable: false,
+            },
+            {
+                targets: 5,
+                searchable: false,
+                orderable: false,
+            },
+            {
+                targets: 6,
+                searchable: false,
+                orderable: false,
+                className: "dt-head-right dt-body-right",
+            },
+
+            {
+                targets: 7,
+                className: "dt-head-center dt-body-center",
+                defaultContent: "",
+                searchable: false,
+                orderable: false,
+                render: function() {
+                    return `<span class="material-symbols-outlined text-black pointer"data-bs-toggle="popover"data-bs-placement="bottom"data-bs-content-id="popcollection"tabindex="0">more_horiz</span>`;
+                },
+            },
+        ],
+
+        paging: false,
+        searching: false,
+        info: false,
+        order: [],
+        fixedColumns: {
+            left: 0,
+            right: 1,
+        },
+        scrollX: true,
+        footerCallback: function(row, data, start, end, display) {
+            var api = this.api(),
+                data;
+
+            // Remove the formatting to get integer data for summation
+            var intVal = function(i) {
+                return typeof i === "string" ?
+                    i.replace(/[\$,]/g, "") * 1 :
+                    typeof i === "number" ?
+                    i :
+                    0;
+            };
+
+            // Total over all pages
+            total = api
+                .column(5)
+                .data()
+                .reduce(function(a, b) {
+                    return intVal(a) + intVal(b);
+                });
+            total1 = api
+                .column(6)
+                .data()
+                .reduce(function(a, b) {
+                    return intVal(a) + intVal(b);
+                });
+            $(api.column(5).footer()).html(
+                '<span class=" text-nowrap">Total = </span>'
+            );
+            $(api.column(6).footer()).html(
+                '<span class="text-end">' + total1.toFixed(2) + "</span>"
+            );
+        },
+    });
+
+    $("#approvalstable").DataTable({
+        data: [{
+                "Reference #": "3478652345",
+                Charge: "70540-MRI Orbit Face &/ Neck W/O Contrast",
+                Status: "Approved",
+                Quantity: "1",
+                Amount: "100.00",
+                "Patient Share": "100.00",
+            },
+            {
+                "Reference #": "3478652345",
+                Charge: "60240-Thyroidectomy Total/Complete",
+                Status: "Pending",
+                Quantity: "1",
+                Amount: "100.00",
+                "Patient Share": "100.00",
+            },
+            {
+                "Reference #": "3478652345",
+                Charge: "70540-MRI Orbit Face &/ Neck W/O Contrast",
+                Status: "Rejected",
+                Quantity: "1",
+                Amount: "100.00",
+                "Patient Share": "100.00",
+            },
+        ],
+        columns: [{
+                data: "Reference #",
+            },
+            {
+                data: "Charge",
+            },
+            {
+                data: "Status",
+            },
+            {
+                data: "Quantity",
+            },
+            {
+                data: "Amount",
+            },
+            {
+                data: "Patient Share",
+            },
+            {
+                data: "",
+            },
+        ],
+        paging: false,
+        order: [],
+        searching: false,
+        info: false,
+        fixedColumns: {
+            left: 0,
+            right: 1,
+        },
+        scrollX: true,
+        columnDefs: [{
+                targets: 0,
+                searchable: false,
+                orderable: false,
+                render: function(data) {
+                    return `<a href="#"class='text-info'>${data}</a>`;
+                },
+            },
+            {
+                orderable: false,
+                targets: 1,
+            },
+            {
+                orderable: true,
+                targets: 2,
+                render: function(data) {
+                    if (data == "Approved") {
+                        return `<span class="text-success bg-light-mgreen badge-st px-2">${data}</span>`;
+                    } else if (data == "Pending") {
+                        return `<span class="text-warning bg-light-yellow badge-st px-2">${data}</span>`;
+                    } else if (data == "Rejected") {
+                        return `<span class="text-danger bg-danger-light badge-st px-2">${data}</span>`;
+                    } else {
+                        return `<span class="text-danger bg-danger-light badge-st px-2">${data}</span>`;
+                    }
+                },
+            },
+            {
+                orderable: false,
+                className: "dt-head-right dt-body-right",
+                targets: 3,
+            },
+            {
+                orderable: false,
+                className: "dt-body-right dt-head-right",
+                targets: 4,
+            },
+            {
+                orderable: false,
+                className: "dt-body-right dt-head-right",
+                targets: 5,
+            },
+            {
+                orderable: false,
+                targets: 6,
+                defaultContent: "",
+                className: "dt-head-center dt-body-center",
+                render: function() {
+                    return ` <span class="material-symbols-outlined">chat</span>`;
+                },
+            },
+        ],
+    });
+
+    $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+
+    $('a[data-bs-toggle="tab"]').on("shown.bs.tab", function(e) {
+        $.fn.dataTable
+            .tables({
+                visible: true,
+                api: true,
+            })
+            .columns.adjust();
+    });
+
+    const list = [].slice.call(
+        document.querySelectorAll('[data-bs-toggle="popover"]')
+    );
+    list.map((el) => {
+        let opts = {
+            animation: false,
+        };
+        if (el.hasAttribute("data-bs-content-id")) {
+            opts.content = document.getElementById(
+                el.getAttribute("data-bs-content-id")
+            ).innerHTML;
+            opts.html = true;
+        }
+        new bootstrap.Popover(el, opts);
+    });
+});
+
+//stayhistorytable
+$("#stayhistorytable").DataTable({
+    data: [{
+        "Room Type": "20.09 - Minor Procedure Room (for endoscopies, bronchoscopies, minor procedures, MOH surgeries)",
+        "Visit Date": "02/06/2022 08:10 -05/06/2022 04:30",
+        "Number of Days": "4",
+    }, ],
+    columns: [
+        { data: "Room Type" },
+        { data: "Visit Date" },
+        { data: "Number of Days" },
+        { data: "" },
+    ],
+    columnDefs: [{
+            targets: 0,
+            orderable: false,
+        },
+        {
+            targets: 1,
+            orderable: false,
+        },
+        {
+            targets: 2,
+            orderable: false,
+        },
+        {
+            targets: 3,
+            orderable: true,
+            defaultContent: "",
+            render: function() {
+                return `<span class="text-success bg-light-mgreen badge-st px-1">Occupied</span>`;
+            },
+        },
+    ],
+    paging: false,
+    searching: false,
+    order: [],
+    info: false,
+    scrollX: true,
+    scrollCollapse: true,
+    responsive: true,
+});
+//Newpolicy1 table
+
+$("#Newpolicycanvas").DataTable({
+    data: [{
+            Name: "Insurance.pdf",
+            "Modified On": "02/06/2022 08:28",
+            "Modified By": "Shaikh Mohammed",
+            Size: "68KB",
+        },
+        {
+            Name: "Health_Plan.jpg",
+            "Modified On": "02/06/2022 08:28",
+            "Modified By": "Shaikh Mohammed",
+            Size: "68KB",
+        },
+    ],
+    columns: [
+        { data: "Name" },
+        { data: "Modified On" },
+        { data: "Modified By" },
+        { data: "Size" },
+    ],
+    columnDefs: [{
+        targets: 0,
+        orderable: false,
+        className: "dt-body-center",
+        defaultContent: "",
+        render: function(data) {
+            if (data == "Insurance.pdf") {
+                return `<span class="material-symbols-outlined float-start text-white border-0 bg-warning rounded p-1 h-100">folder</span><span class="subtitle fw500 ms-2 align-items-center">${data}</span>`;
+            } else if (data == "Health_Plan.jpg") {
+                return `<span class="material-symbols-outlined float-start text-white border-0 bg-warning rounded p-1 h-100">folder</span><span class="subtitle fw500 ms-2 align-items-center">${data}</span>`;
+            } else {
+                return `<span class="material-symbols-outlined float-start text-white border-0 bg-warning rounded p-1 h-100">folder</span><span class="subtitle fw500 ms-2 align-items-center">${data}</span>`;
+            }
+        },
+    }, ],
+
+    paging: false,
+    searching: false,
+    info: false,
+    scrollX: true,
+    scrollCollapse: true,
+    responsive: true,
+});
+$("#Newpolicycanvas1").DataTable({
+    data: [{
+            Name: "Insurance.pdf",
+            "Modified On": "02/06/2022 08:28",
+            "Modified By": "Shaikh Mohammed",
+            Size: "68KB",
+        },
+        {
+            Name: "Health_Plan.jpg",
+            "Modified On": "02/06/2022 08:28",
+            "Modified By": "Shaikh Mohammed",
+            Size: "68KB",
+        },
+    ],
+    columns: [
+        { data: "Name" },
+        { data: "Modified On" },
+        { data: "Modified By" },
+        { data: "Size" },
+    ],
+    columnDefs: [{
+        targets: 0,
+        orderable: false,
+        className: "dt-body-center",
+        defaultContent: "",
+        render: function(data) {
+            if (data == "Insurance.pdf") {
+                return `<span class="material-symbols-outlined float-start text-white border-0 bg-warning rounded p-1 h-100">folder</span><span class="subtitle fw500 ms-2 align-items-center">${data}</span>`;
+            } else if (data == "Health_Plan.jpg") {
+                return `<span class="material-symbols-outlined float-start text-white border-0 bg-warning rounded p-1 h-100">folder</span><span class="subtitle fw500 ms-2 align-items-center">${data}</span>`;
+            } else {
+                return `<span class="material-symbols-outlined float-start text-white border-0 bg-warning rounded p-1 h-100">folder</span><span class="subtitle fw500 ms-2 align-items-center">${data}</span>`;
+            }
+        },
+    }, ],
+
+    paging: false,
+    searching: false,
+    info: false,
+    scrollX: true,
+    scrollCollapse: true,
+    responsive: true,
+});
+//New Charge Details Canvas Table
+
+//service-newpolicytable
+$("#service-newpolicy").DataTable({
+    data: [{
+            Name: `Insurance.pdf`,
+            "Modified On": `02/06/2022 08:28`,
+            "Modified By": `Arun Shahu`,
+            Size: `68KB`,
+        },
+        {
+            Name: `Insurance.pdf`,
+            "Modified On": `02/06/2022 08:28`,
+            "Modified By": `Arun Shahu`,
+            Size: `68KB`,
+        },
+    ],
+    paging: false,
+    searching: false,
+    info: false,
+    scrollX: true,
+    scrollCollapse: true,
+    responsive: true,
+    columns: [
+        { data: "Name" },
+        { data: "Modified On" },
+        { data: "Modified By" },
+        { data: "Size" },
+        { data: "Action" },
+    ],
+    columnDefs: [{
+            targets: 0,
+            orderable: false,
+            render: function(data) {
+                if (data == "Insurance.pdf") {
+                    return `<span class="material-symbols-outlined text-warning float-start me-3">folder</span><span class="subtitle">${data}</span>`;
+                }
+            },
+        },
+
+        {
+            targets: 4,
+            defaultContent: "",
+            className: "dt-head-center dt-body-center",
+            render: function() {
+                return `<span class="material-symbols-outlined text-black">more_horiz</span>`;
+            },
+        },
+    ],
+    fixedColumns: {
+        right: 1,
+        left: 0,
+    },
+});
+//Ordered Table
+$("#chargestable").DataTable({
+    data: [{
+            Code: "70540",
+            Description: "Abilify 10 mg tablets (30s, plastic bottle)",
+            "Effective Date": "02/06/2022 08:28",
+            Status: "Active",
+            Rate: "19.00",
+            Quantity: "1",
+            Amount: "19.00",
+        },
+        {
+            Code: "61.01",
+            Description: "Dietitian Consultation (Package)",
+            "Effective Date": "02/06/2022 08:28",
+            Status: "Active",
+            Rate: "50.00",
+            Quantity: "1",
+            Amount: "50.00",
+        },
+        {
+            Code: "19657",
+            Description: "Certican 0.75 mg tablets",
+            "Effective Date": "02/06/2022 08:28",
+            Status: "Active",
+            Rate: "31.00",
+            Quantity: "1",
+            Amount: "31.00",
+        },
+        {
+            Code: "70540",
+            Description: "Abilify 10 mg tablets (30s, plastic bottle)",
+            "Effective Date": "02/06/2022 08:28",
+            Status: "Active",
+            Rate: "19.00",
+            Quantity: "1",
+            Amount: "19.00",
+        },
+        {
+            Code: "56441",
+            Description: "Acetylcysteine 20% solution",
+            "Effective Date": "02/06/2022 08:28",
+            Status: "Pending",
+            Rate: "50.00",
+            Quantity: "1",
+            Amount: "50.00",
+        },
+        {
+            Code: "19657",
+            Description: "Certican 0.75 mg tablets",
+            "Effective Date": "02/06/2022 08:28",
+            Status: "Pending",
+            Rate: "31.00",
+            Quantity: "1",
+            Amount: "31.00",
+        },
+        {
+            Code: "70540",
+            Description: "Abilify 10 mg tablets (30s, plastic bottle)",
+            "Effective Date": "02/06/2022 08:28",
+            Status: "Completed",
+            Rate: "19.00",
+            Quantity: "1",
+            Amount: "19.00",
+        },
+        {
+            Code: "19657",
+            Description: "Abilify 10 mg tablets (30s, plastic bottle)",
+            "Effective Date": "02/06/2022 08:28",
+            Status: "Completed",
+            Rate: "50.00",
+            Quantity: "1",
+            Amount: "50.00",
+        },
+    ],
+    paging: false,
+    searching: false,
+    info: false,
+    scrollX: true,
+    scrollCollapse: true,
+    responsive: true,
+    order: [],
+    columns: [
+        { data: "" },
+        { data: "Code" },
+        { data: "Description" },
+        { data: "Effective Date" },
+        { data: "Status" },
+        { data: "Rate" },
+        { data: "Quantity" },
+        { data: "Amount" },
+        { data: "" },
+    ],
+    columnDefs: [{
+            targets: 0,
+            orderable: false,
+            defaultContent: "",
+            render: function() {
+                return CheckBox();
+            },
+        },
+        {
+            targets: 1,
+            orderable: false,
+            render: function(data) {
+                if (data == "70540") {
+                    return `<a href='#' class='text-info fw500 font16 lh3' data-bs-toggle='offcanvas' data-bs-target='#mscharge' aria-controls='offcanvasRight'>${data}</a >`;
+                } else if (data == "61.01") {
+                    return `<a href='#' data-bs-toggle='offcanvas' data-bs-target='#sevcharge' aria-controls='offcanvasRight' class='text-info fw500 font16 lh3'>${data}</a>`;
+                } else {
+                    return `<a href='#'' class='text-info fw500 font16 lh3'>${data}</a>`;
+                }
+            },
+        },
+        { width: 200, targets: 2, orderable: false },
+        {
+            targets: 3,
+            orderable: true,
+        },
+        {
+            targets: 4,
+            orderable: true,
+            render: function(data) {
+                if (data == "Active") {
+                    return `<span class='text-success bg-grad-light-mgreen badge-st px-2'>${data}</span>`;
+                } else if (data == "Pending") {
+                    return `<span class='text-warning bg-light-yellow badge-st px-2'>${data}</span>`;
+                } else if (data == "Completed") {
+                    return `<span class='text-dark-2 bg-dark-5 badge-st px-2'>${data}</span>`;
+                }
+            },
+        },
+        {
+            targets: 5,
+            orderable: false,
+            className: "dt-body-right dt-head-right",
+        },
+        {
+            targets: 6,
+            orderable: false,
+            className: "dt-body-right dt-head-right",
+        },
+        {
+            targets: 7,
+            orderable: false,
+            className: "dt-body-right dt-head-right",
+        },
+        {
+            targets: 8,
+            orderable: false,
+            defaultContent: "",
+            className: "dt-body-center dt-head-center",
+            render: function(data, type, row) {
+                var conditionalbaseddata = row.Code;
+                if (conditionalbaseddata == "70540") {
+                    return MoreAction();
+                } else if (conditionalbaseddata == "56441") {
+                    return MoreActionExtra();
+                } else {
+                    return `<span class="material-symbols-outlined text-black pointer">more_horiz</span>`;
+                }
+            },
+        },
+    ],
+    fixedColumns: {
+        right: 1,
+        left: 0,
+    },
+    footerCallback: function(row, data, start, end, display) {
+        var api = this.api(),
+            data;
+
+        // Remove the formatting to get integer data for summation
+        var intVal = function(i) {
+            return typeof i === "string" ?
+                i.replace(/[\$,]/g, "") * 1 :
+                typeof i === "number" ?
+                i :
+                0;
+        };
+
+        // Total over all pages
+        total = api
+            .column(4)
+            .data()
+            .reduce(function(a, b) {
+                return intVal(a) + intVal(b);
+            });
+        total1 = api
+            .column(5)
+            .data()
+            .reduce(function(a, b) {
+                return intVal(a) + intVal(b);
+            });
+        total2 = api
+            .column(6)
+            .data()
+            .reduce(function(a, b) {
+                return intVal(a) + intVal(b);
+            });
+        total3 = api
+            .column(7)
+            .data()
+            .reduce(function(a, b) {
+                return intVal(a) + intVal(b);
+            });
+
+        $(api.column(4).footer()).html(
+            '<span class=" text-nowrap">Total = </span>'
+        );
+        $(api.column(5).footer()).html(
+            '<span class="text-end">' + total1.toFixed(2) + "</span>"
+        );
+        $(api.column(6).footer()).html(
+            '<span class="text-end">' + total2.toFixed(2) + "</span>"
+        );
+        $(api.column(7).footer()).html(
+            '<span class="text-end">' + total3.toFixed(2) + "</span>"
+        );
+    },
+});
+
+function CheckBox() {
+    return `<label class="form-check-label customcheck d-flex align-items-center" for="check-box1">
+    <input class="form-check-input" type="checkbox" value="" id="check-box1" checked="">
+    <span class="checkinput me-2"></span></label>`;
+}
+
+function MoreAction() {
+    return `<span class="material-symbols-outlined text-black pointer" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content-id="popover16" tabindex="0">more_horiz</span>
+    <div class="popovercontent d-none" id="popover16">
+        <div class="list-group">
+        <ul class="list-unstyled">
+        <li><a class="list-group-item list-group-item-action testing" href="#">Edit</a></li>
+        <li><a class="list-group-item list-group-item-action testing" href="#">Upgrade to Performed</a></li>
+        <li><a class="list-group-item list-group-item-action testing" href="#">Raise Approval</a></li>
+        <li><a class="list-group-item list-group-item-action testing" href="#">Interim Bill</a></li>
+        <li><a class="list-group-item list-group-item-action testing" href="#">Add to Package</a></li>
+        <li><a class="list-group-item list-group-item-action testing" href="#">Add to Favourites</a></li>
+        <li><a class="list-group-item list-group-item-action testing text-danger" href="#">Cancel</a></li>
+        </ul>
+        </div>
+    </div>`;
+}
+
+function MoreActionExtra() {
+    return `<span class="material-symbols-outlined text-black pointer" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content-id="popover22" tabindex="0">more_horiz</span>
+    <div class="popovercontent d-none" id="popover22">
+        <div class="list-group">
+        <ul class="list-unstyled">
+        <li><a class="list-group-item list-group-item-action testing" href="#">Edit</a></li>
+        <li><a class="list-group-item list-group-item-action testing" href="#">Upgrade to Performed</a></li>
+        <li><a class="list-group-item list-group-item-action testing" href="#">Raise Approval</a></li>
+        <li><a class="list-group-item list-group-item-action testing" href="#">Interim Bill</a></li>
+        <li><a class="list-group-item list-group-item-action testing1" data-bs-toggle="modal" data-bs-target="#Remove-Modal" href="#">Remove to Package</a></li>
+        <li><a class="list-group-item list-group-item-action testing" href="#">Remove to Favourites</a></li>
+        <li><a class="list-group-item list-group-item-action testing text-danger" href="#">Cancel</a></li>
+        </ul>
+        </div>
+    </div>`;
+}
+$(document).on("click", ".testing1", function() {
+    $("#Remove-Modal").modal("show");
+    $(".popover").popover("hide");
+});
+
+//Medi-packinfo table
+$("#Medi-packinfo").DataTable({
+    data: [{
+            "Sl No": "1",
+            "Installment Date": "12/10/2022",
+            "Installment Amount": "0.00",
+            "Pay Mode": "Cheque",
+            "Reference Date": "12/10/2022",
+            "Bank Name": "Emirates NBD",
+            "Reference Number": "23242322",
+            Remarks: "Remarks go here",
+        },
+        {
+            "Sl No": "2",
+            "Installment Date": "12/10/2022",
+            "Installment Amount": "0.00",
+            "Pay Mode": "Cheque",
+            "Reference Date": "12/10/2022",
+            "Bank Name": "Emirates NBD",
+            "Reference Number": "23242322",
+            Remarks: "Remarks go here",
+        },
+    ],
+    columns: [
+        { data: "Sl No" },
+        { data: "Installment Date" },
+        { data: "Installment Amount" },
+        { data: "Pay Mode" },
+        { data: "Reference Date" },
+        { data: "Bank Name" },
+        { data: "Reference Number" },
+        { data: "Remarks" },
+        { data: "" },
+    ],
+    columnDefs: [{
+        targets: 8,
+        orderable: false,
+        defaultContent: "",
+        render: function() {
+            return `<span class="material-symbols-outlined fs-4">edit</span><span class="material-symbols-outlined fs-4 ms-1 text-danger">delete</span>`;
+        },
+    }, ],
+    paging: false,
+    searching: false,
+    info: false,
+    scrollX: true,
+    scrollCollapse: true,
+    ordering: false,
+    responsive: true,
+    fixedColumns: {
+        right: 1,
+        left: 0,
+    },
+});
+//bill-attchtable
+$("#billattchtable").DataTable({
+    data: [{
+            Name: "Insurance.pdf",
+            "Modified On": "02/06/2022 08:28",
+            "Modified By": "Shaikh Mohammed",
+            Size: "68KB",
+        },
+        {
+            Name: "Health-plan.pdf",
+            "Modified On": "02/06/2022 08:28",
+            "Modified By": "Shaikh Mohammed",
+            Size: "68KB",
+        },
+    ],
+    columns: [
+        { data: "Name" },
+        { data: "Modified On" },
+        { data: "Modified By" },
+        { data: "Size" },
+        { data: "Action" },
+    ],
+    paging: false,
+    searching: false,
+    info: false,
+    scrollX: true,
+    scrollCollapse: true,
+    ordering: false,
+    responsive: true,
+    columnDefs: [{
+            targets: 0,
+            width: 150,
+            render: function(data) {
+                if (data == "Insurance.pdf") {
+                    return `<span class="material-symbols-outlined text-warning float-start me-3">folder</span><span class="subtitle">${data}</span>`;
+                } else if (data == "Health-plan.pdf") {
+                    return `<span class="material-symbols-outlined text-warning float-start me-3">folder</span><span class="subtitle">${data}</span>`;
+                } else {
+                    return `<span class="material-symbols-outlined text-warning float-start me-3">folder</span><span class="subtitle">${data}</span>`;
+                }
+            },
+        },
+        {
+            targets: 4,
+            className: "dt-head-center dt-body-center",
+            defaultContent: "",
+            render: function() {
+                return `<span class="material-symbols-outlined text-black">more_horiz</span>`;
+            },
+        },
+    ],
+});
+//Medi-packinfo1 table
+
+$("#Medi-packinfo1").DataTable({
+    data: [{
+            Name: "Insurance.pdf",
+            "Modified On": "02/06/2022 08:28",
+            "Modified By": "Shaikh Mohammed",
+            Size: "68KB",
+        },
+        {
+            Name: "Health_Plan.jpg",
+            "Modified On": "02/06/2022 08:28",
+            "Modified By": "Shaikh Mohammed",
+            Size: "68KB",
+        },
+    ],
+    columns: [
+        { data: "Name" },
+        { data: "Modified On" },
+        { data: "Modified By" },
+        { data: "Size" },
+    ],
+    columnDefs: [{
+        targets: 0,
+        orderable: false,
+        className: "dt-body-center",
+        defaultContent: "",
+        render: function(data) {
+            if (data == "Insurance.pdf") {
+                return `<span class="material-symbols-outlined float-start text-white border-0 bg-warning rounded p-1 h-100">folder</span><span class="subtitle fw500 ms-2 align-items-center">${data}</span>`;
+            } else if (data == "Health_Plan.jpg") {
+                return `<span class="material-symbols-outlined float-start text-white border-0 bg-warning rounded p-1 h-100">folder</span><span class="subtitle fw500 ms-2 align-items-center">${data}</span>`;
+            } else {
+                return `<span class="material-symbols-outlined float-start text-white border-0 bg-warning rounded p-1 h-100">folder</span><span class="subtitle fw500 ms-2 align-items-center">${data}</span>`;
+            }
+        },
+    }, ],
+
+    paging: false,
+    searching: false,
+    info: false,
+    scrollX: true,
+    scrollCollapse: true,
+    responsive: true,
+});
+
+//PackageCompTable
+$("#PackageCompTable").DataTable({
+    data: [{
+            "Sl No": "1",
+            Name: "All Charges",
+            "Validity Period": "02/06/2022 - 01/09/2022",
+            Quantity: "12",
+            Amount: "0.00",
+        },
+        {
+            "Sl No": "2",
+            Name: "Medications",
+            "Validity Period": "02/06/2022 - 01/09/2022",
+            Quantity: "0",
+            Amount: "2000.00",
+        },
+        {
+            "Sl No": "3",
+            Name: "Dr.Abdul",
+            "Validity Period": "02/06/2022 - 01/09/2022",
+            Quantity: "0",
+            Amount: "2000.00",
+        },
+    ],
+    columns: [{
+            data: "Sl No",
+        },
+        {
+            data: "Name",
+        },
+        {
+            data: "Validity Period",
+        },
+        {
+            data: "Quantity",
+        },
+        {
+            data: "Amount",
+        },
+    ],
+    paging: false,
+    searching: false,
+    info: false,
+    scrollX: true,
+    scrollCollapse: true,
+    responsive: true,
+    columnDefs: [{
+            targets: 1,
+            render: function(data) {
+                return `<a href="#" class="text-info">${data}</a>`;
+            },
+        },
+        { targets: 3, className: "dt-head-right dt-body-right" },
+        { targets: 4, className: "dt-head-right dt-body-right" },
+    ],
+});
+//Medi-newpolicy table
+$("#Medi-newpolicy").DataTable({
+    data: [{
+            Name: "Insurance.pdf",
+            "Modified On": "02/06/2022 08:28",
+            "Modified By": "Shaikh Mohammed",
+            Size: "68KB",
+        },
+        {
+            Name: "Health-plan.pdf",
+            "Modified On": "02/06/2022 08:28",
+            "Modified By": "Shaikh Mohammed",
+            Size: "68KB",
+        },
+    ],
+    columns: [{
+            data: "Name",
+        },
+        {
+            data: "Modified On",
+        },
+        {
+            data: "Modified By",
+        },
+        {
+            data: "Size",
+        },
+        {
+            data: "",
+        },
+    ],
+    paging: false,
+    searching: false,
+    info: false,
+    scrollX: true,
+    scrollCollapse: true,
+    responsive: true,
+    columnDefs: [{
+            targets: 0,
+            orderable: false,
+            render: function(data) {
+                if (data == "Insurance.pdf") {
+                    return `<span class="material-symbols-outlined float-start text-white border-0 bg-warning rounded p-1 h-100">folder</span><span class="subtitle fw500 ms-2 align-items-center">${data}</span>`;
+                } else if (data == "Health_Plan.jpg") {
+                    return `<span class="material-symbols-outlined float-start text-white border-0 bg-warning rounded p-1 h-100">folder</span><span class="subtitle fw500 ms-2 align-items-center">${data}</span>`;
+                } else {
+                    return `<span class="material-symbols-outlined float-start text-white border-0 bg-warning rounded p-1 h-100">folder</span><span class="subtitle fw500 ms-2 align-items-center">${data}</span>`;
+                }
+            },
+        },
+
+        {
+            targets: 4,
+            defaultContent: "",
+            className: "dt-head-center dt-body-center",
+            render: function() {
+                return `<span class="material-symbols-outlined text-black">more_horiz</span>`;
+            },
+        },
+    ],
+    fixedColumns: {
+        right: 1,
+        left: 0,
+    },
+});
+
+//service-newcomponent table
+$("#service-newcomponent").DataTable({
+    data: [{
+            "Join Type": "",
+            Field: "Charge-Code",
+            Operator: "=",
+            Value: "708651",
+        },
+        {
+            "Join Type": "Or",
+            Field: "Charge-Category",
+            Operator: ">",
+            Value: "Laboratory",
+        },
+    ],
+    columns: [{
+            data: "Join Type",
+        },
+        {
+            data: "Field",
+        },
+        {
+            data: "Operator",
+        },
+        {
+            data: "Value",
+        },
+        {
+            data: " ",
+        },
+    ],
+    columnDefs: [{
+            targets: 0,
+            defaultContent: "",
+            orderable: false,
+            render: function(data) {
+                if (data == "Or") {
+                    return `<select class="form-select"><option>${data}</option></select>`;
+                }
+            },
+        },
+        {
+            targets: 1,
+            orderable: false,
+            render: function(data) {
+                if (data == "Charge-Code") {
+                    return `<select class="form-select"><option>${data}</option><option>Encounter Type</option><option>Group Type</option><option>Speciality</option></select>`;
+                } else if (data == "Charge-Category") {
+                    return `<select class="form-select"><option>${data}</option></select>`;
+                }
+            },
+        },
+        {
+            targets: 2,
+            orderable: false,
+            render: function(data) {
+                if (data == "=") {
+                    return `<select class="form-select"><option>${data}</option></select>`;
+                } else if (data == ">") {
+                    return `<select class="form-select"><option>${data}</option></select>`;
+                }
+            },
+        },
+        {
+            targets: 3,
+            orderable: false,
+            render: function(data) {
+                if (data == "708651") {
+                    return `<select class="form-select"><option>${data}</option></select>`;
+                } else if (data == "Laboratory") {
+                    return `<select class="form-select"><option>${data}</option></select>`;
+                }
+            },
+        },
+
+        {
+            targets: 4,
+            defaultContent: "",
+            className: "dt-head-center dt-body-center",
+            render: function() {
+                return `<span class="material-symbols-outlined text-danger">delete</span>`;
+            },
+        },
+    ],
+    footerCallback: function(row, data, start, end, display) {
+        var api = this.api(),
+            data;
+        $(api.column(1).footer()).html(
+            `<span class="text-info float-start d-inline-flex align-items-start"><span class="material-symbols-outlined px-1">add</span>New Condition</span>`
+        );
+    },
+    paging: false,
+    searching: false,
+    info: false,
+    scrollX: true,
+    scrollCollapse: true,
+    ordering: false,
+    responsive: true,
+});
+
+//Overview Table
+$("#overviewtable1").DataTable({
+    data: [{
+            "Charge Category": "DRG Category",
+            Ordered: "10",
+            Billed: "7",
+            Cancelled: "3",
+        },
+        {
+            "Charge Category": "ENT / Oral and Maxillofacial Procedures",
+            Ordered: "1",
+            Billed: "1",
+            Cancelled: "0",
+        },
+        {
+            "Charge Category": "General Surgery Procedures",
+            Ordered: "1",
+            Billed: "1",
+            Cancelled: "0",
+        },
+        {
+            "Charge Category": "HCPCS Category",
+            Ordered: "1",
+            Billed: "1",
+            Cancelled: "0",
+        },
+        {
+            "Charge Category": "Medication",
+            Ordered: "10",
+            Billed: "7",
+            Cancelled: "3",
+        },
+        {
+            "Charge Category": "Orthopedic Procedures",
+            Ordered: "1",
+            Billed: "1",
+            Cancelled: "0",
+        },
+        {
+            "Charge Category": "Private Room Per Day",
+            Ordered: "5",
+            Billed: "3",
+            Cancelled: "2",
+        },
+    ],
+    columns: [{
+            data: "Charge Category",
+        },
+        {
+            data: "Ordered",
+        },
+        {
+            data: "Billed",
+        },
+        {
+            data: "Cancelled",
+        },
+    ],
+    paging: false,
+    searching: false,
+    info: false,
+    scrollX: true,
+    scrollCollapse: true,
+    ordering: false,
+    responsive: true,
+});
+//Rules Table
+$("#Rulestable").DataTable({
+    data: [{
+            "Sl No": "1",
+            Name: "All Emergency Services",
+        },
+        {
+            "Sl No": "2",
+            Name: "All In Patients and Daycare Services",
+        },
+        {
+            "Sl No": "3",
+            Name: "Custom Rule Name",
+        },
+    ],
+    columns: [{
+            data: "Sl No",
+        },
+        {
+            data: "Name",
+        },
+        {
+            data: "",
+        },
+    ],
+    paging: false,
+    searching: false,
+    info: false,
+    scrollX: true,
+    scrollCollapse: true,
+    responsive: true,
+    columnDefs: [{
+            targets: 1,
+            searchable: false,
+            orderable: false,
+            render: function(data) {
+                if (data == "All Emergency Services") {
+                    return `<a href="#"class='text-info text-decoration-none edit datablewidthselect'>${data}</a>`;
+                } else {
+                    return `<a href="#"class='text-info text-decoration-none'>${data}</a>`;
+                }
+            },
+        },
+        {
+            targets: 2,
+            searchable: false,
+            orderable: false,
+            defaultContent: "",
+            className: "dt-head-right dt-body-right",
+            render: function(data) {
+                return `<span class="material-symbols-outlined">edit</span><span class="material-symbols-outlined text-danger">delete</span>`;
+            },
+        },
+    ],
+});
+//Payment Due Table
+$("#paymentduetable").DataTable({
+    data: [{
+            "Reference #": "DIR-14711",
+            Type: "Direct Bill",
+            Date: "02/06/2022 08:28",
+            "Total Amount": "100.00",
+            "Payer 1": "50.00",
+            "Payer 2": "10.00",
+            Collected: "60.00",
+            Balance: "40.00",
+        },
+        {
+            "Reference #": "DIR-14711",
+            Type: "Deposit",
+            Date: "02/06/2022 08:28",
+            "Total Amount": "100.00",
+            "Payer 1": "50.00",
+            "Payer 2": "10.00",
+            Collected: "60.00",
+            Balance: "40.00",
+        },
+        {
+            "Reference #": "DIR-14711",
+            Type: "Reprocess Bill",
+            Date: "02/06/2022 08:28",
+            "Total Amount": "100.00",
+            "Payer 1": "50.00",
+            "Payer 2": "10.00",
+            Collected: "60.00",
+            Balance: "40.00",
+        },
+        {
+            "Reference #": "DIR-14711",
+            Type: "Direct Bill",
+            Date: "02/06/2022 08:28",
+            "Total Amount": "100.00",
+            "Payer 1": "50.00",
+            "Payer 2": "10.00",
+            Collected: "60.00",
+            Balance: "40.00",
+        },
+        {
+            "Reference #": "DIR-14711",
+            Type: "Deposit",
+            Date: "02/06/2022 08:28",
+            "Total Amount": "100.00",
+            "Payer 1": "50.00",
+            "Payer 2": "10.00",
+            Collected: "60.00",
+            Balance: "40.00",
+        },
+        {
+            "Reference #": "DIR-14711",
+            Type: "Deposit",
+            Date: "02/06/2022 08:28",
+            "Total Amount": "100.00",
+            "Payer 1": "50.00",
+            "Payer 2": "10.00",
+            Collected: "60.00",
+            Balance: "40.00",
+        },
+        {
+            "Reference #": "DIR-14711",
+            Type: "Deposit",
+            Date: "02/06/2022 08:28",
+            "Total Amount": "100.00",
+            "Payer 1": "50.00",
+            "Payer 2": "10.00",
+            Collected: "60.00",
+            Balance: "40.00",
+        },
+        {
+            "Reference #": "DIR-14711",
+            Type: "Deposit",
+            Date: "02/06/2022 08:28",
+            "Total Amount": "100.00",
+            "Payer 1": "50.00",
+            "Payer 2": "10.00",
+            Collected: "60.00",
+            Balance: "40.00",
+        },
+        {
+            "Reference #": "DIR-14711",
+            Type: "Deposit",
+            Date: "02/06/2022 08:28",
+            "Total Amount": "100.00",
+            "Payer 1": "50.00",
+            "Payer 2": "10.00",
+            Collected: "60.00",
+            Balance: "40.00",
+        },
+    ],
+    paging: false,
+    searching: false,
+    info: false,
+    scrollX: true,
+    scrollCollapse: true,
+    responsive: true,
+    ordering: false,
+    columns: [
+        { data: "" },
+        { data: "Reference #" },
+        { data: "Type" },
+        { data: "Date" },
+        { data: "Total Amount" },
+        { data: "Payer 1" },
+        { data: "Payer 2" },
+        { data: "Collected" },
+        { data: "Balance" },
+        { data: "" },
+    ],
+    columnDefs: [{
+            targets: 0,
+            orderable: false,
+            defaultContent: "",
+            render: function(data) {
+                return CheckBox();
+            },
+        },
+
+        {
+            targets: 1,
+            orderable: false,
+            render: function(data) {
+                return `<a href="#"class='text-info'>${data}</a>`;
+            },
+        },
+        {
+            targets: 4,
+            className: "dt-body-right dt-head-right",
+        },
+        {
+            targets: 5,
+            className: "dt-body-right dt-head-right",
+        },
+        {
+            targets: 6,
+            className: "dt-body-right dt-head-right",
+        },
+        {
+            targets: 7,
+            className: "dt-body-right dt-head-right",
+        },
+        {
+            targets: 8,
+            className: "dt-body-center dt-head-center",
+        },
+        {
+            targets: 9,
+            className: "dt-body-center dt-head-center",
+            defaultContent: "",
+            render: function(data, type, row) {
+                var conditionmakeonaction = row.Type;
+                if (conditionmakeonaction == "Deposit") {
+                    return paymentDueAction();
+                } else {
+                    return `<span class="material-symbols-outlined text-black pointer">more_horiz</span>`;
+                }
+            },
+        },
+    ],
+    order: [
+        [8, "desc"]
+    ],
+    fixedColumns: {
+        right: 1,
+        left: 0,
+    },
+});
+
+function paymentDueAction() {
+    return `<span class="material-symbols-outlined text-black pointer" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content-id="popover17" tabindex="0">more_horiz</span>
+    <div class="popovercontent d-none" id="popover17">
+        <div class="list-group">
+        <ul class="list-unstyled">
+        <li><a class="list-group-item list-group-item-action testing" href="#">Reprint Bill</a></li>
+        <li><a class="list-group-item list-group-item-action testing" href="#">Reprocess Bill</a></li>
+        <li><a class="list-group-item list-group-item-action testing" href="#">Manual Payment Clearance</a></li>
+        <li><a class="list-group-item list-group-item-action testingGeneralinstallments" href="#" data-bs-toggle="offcanvas" data-bs-target="#Installment-Generation" aria-controls="offcanvasRight">Generate Installments</a></li>
+        <li><a class="list-group-item list-group-item-action testing" href="#">View Package Utilization</a></li>
+        <li><a class="list-group-item list-group-item-action testing" href="#">Print IP Details</a></li>
+        <li><a class="list-group-item list-group-item-action testing text-danger" href="#">Cancel Bill</a></li>
+        </ul>
+        </div>
+    </div>`;
+}
+$(document).on("click", ".testingGeneralinstallments", function() {
+    $("#Installment-Generation").offcanvas("show");
+    $(".popover").popover("hide");
+});
+
+//Refund Due Table
+$("#refundduetable").DataTable({
+    data: [{
+            "Reference #": "DIR-14711",
+            Type: "Direct Refund Bill",
+            Date: "02/06/2022 08:28",
+            "Total Amount": "100.00",
+            "Payer 1": "50.00",
+            "Payer 2": "10.00",
+            Collected: "60.00",
+            Balance: "40.00",
+        },
+        {
+            "Reference #": "DIR-14711",
+            Type: "Deposit",
+            Date: "02/06/2022 08:28",
+            "Total Amount": "100.00",
+            "Payer 1": "50.00",
+            "Payer 2": "10.00",
+            Collected: "60.00",
+            Balance: "40.00",
+        },
+        {
+            "Reference #": "DIR-14711",
+            Type: "Reprocess Bill",
+            Date: "02/06/2022 08:28",
+            "Total Amount": "100.00",
+            "Payer 1": "50.00",
+            "Payer 2": "10.00",
+            Collected: "60.00",
+            Balance: "40.00",
+        },
+        {
+            "Reference #": "DIR-14711",
+            Type: "Direct Bill",
+            Date: "02/06/2022 08:28",
+            "Total Amount": "100.00",
+            "Payer 1": "50.00",
+            "Payer 2": "10.00",
+            Collected: "60.00",
+            Balance: "40.00",
+        },
+        {
+            "Reference #": "DIR-14711",
+            Type: "Deposit",
+            Date: "02/06/2022 08:28",
+            "Total Amount": "100.00",
+            "Payer 1": "50.00",
+            "Payer 2": "10.00",
+            Collected: "60.00",
+            Balance: "40.00",
+        },
+    ],
+    paging: false,
+    searching: false,
+    info: false,
+    scrollX: true,
+    order: [],
+    scrollCollapse: true,
+    responsive: true,
+    columns: [
+        { data: "" },
+        { data: "Reference #" },
+        { data: "Type" },
+        { data: "Date" },
+        { data: "Total Amount" },
+        { data: "Payer 1" },
+        { data: "Payer 2" },
+        { data: "Collected" },
+        { data: "Balance" },
+        { data: "" },
+    ],
+    columnDefs: [{
+            targets: 0,
+            orderable: false,
+            defaultContent: "",
+            render: function(data) {
+                return CheckBox();
+            },
+        },
+        {
+            targets: 1,
+            orderable: false,
+            render: function(data) {
+                return `<a href="#"class='text-info'>${data}</a>`;
+            },
+        },
+        {
+            width: 200,
+            targets: 2,
+            orderable: false,
+        },
+        {
+            targets: 3,
+            orderable: false,
+        },
+        {
+            targets: 4,
+            orderable: false,
+            className: "dt-body-right dt-head-right",
+        },
+        {
+            targets: 5,
+            orderable: false,
+            className: "dt-body-right dt-head-right",
+        },
+        {
+            targets: 6,
+            orderable: false,
+            className: "dt-body-right dt-head-right",
+        },
+        {
+            targets: 7,
+            orderable: false,
+            className: "dt-body-right dt-head-right",
+        },
+        {
+            targets: 8,
+            orderable: false,
+            className: "dt-body-center dt-head-center",
+        },
+        {
+            targets: 9,
+            orderable: false,
+            className: "dt-body-center dt-head-center",
+            defaultContent: "",
+            render: function(data) {
+                return paymentDueAction();
+            },
+        },
+    ],
+    fixedColumns: {
+        right: 1,
+        left: 0,
+    },
+});
+
+//Cancelled Bills Table
+$("#cancelledbillstable").DataTable({
+    data: [{
+            "Reference #": "DIR-14711",
+            Type: "Direct Cancelled Bill",
+            Date: "02/06/2022 08:28",
+            "Total Amount": "100.00",
+            "Payer 1": "50.00",
+            "Payer 2": "10.00",
+            Collected: "60.00",
+            Balance: "40.00",
+        },
+        {
+            "Reference #": "DIR-14711",
+            Type: "Deposit",
+            Date: "02/06/2022 08:28",
+            "Total Amount": "100.00",
+            "Payer 1": "50.00",
+            "Payer 2": "10.00",
+            Collected: "60.00",
+            Balance: "40.00",
+        },
+        {
+            "Reference #": "DIR-14711",
+            Type: "Reprocess Bill",
+            Date: "02/06/2022 08:28",
+            "Total Amount": "100.00",
+            "Payer 1": "50.00",
+            "Payer 2": "10.00",
+            Collected: "60.00",
+            Balance: "40.00",
+        },
+        {
+            "Reference #": "DIR-14711",
+            Type: "Direct Bill",
+            Date: "02/06/2022 08:28",
+            "Total Amount": "100.00",
+            "Payer 1": "50.00",
+            "Payer 2": "10.00",
+            Collected: "60.00",
+            Balance: "40.00",
+        },
+        {
+            "Reference #": "DIR-14711",
+            Type: "Deposit",
+            Date: "02/06/2022 08:28",
+            "Total Amount": "100.00",
+            "Payer 1": "50.00",
+            "Payer 2": "10.00",
+            Collected: "60.00",
+            Balance: "40.00",
+        },
+    ],
+    paging: false,
+    searching: false,
+    info: false,
+    scrollX: true,
+    scrollCollapse: true,
+    responsive: true,
+    order: [],
+    columns: [
+        { data: "" },
+        { data: "Reference #" },
+        { data: "Type" },
+        { data: "Date" },
+        { data: "Total Amount" },
+        { data: "Payer 1" },
+        { data: "Payer 2" },
+        { data: "Collected" },
+        { data: "Balance" },
+        { data: "" },
+    ],
+    columnDefs: [{
+            targets: 0,
+            orderable: false,
+            defaultContent: "",
+            render: function(data) {
+                return CheckBox();
+            },
+        },
+        {
+            targets: 1,
+            orderable: false,
+            render: function(data) {
+                return `<a href="#"class='text-info'>${data}</a>`;
+            },
+        },
+        { width: 200, targets: 2, orderable: false },
+        {
+            targets: 3,
+            orderable: false,
+        },
+        {
+            targets: 4,
+            orderable: false,
+            className: "dt-body-right dt-head-right",
+        },
+        {
+            targets: 5,
+            orderable: false,
+            className: "dt-body-right dt-head-right",
+        },
+        {
+            targets: 6,
+            orderable: false,
+            className: "dt-body-right dt-head-right",
+        },
+        {
+            targets: 7,
+            orderable: false,
+            className: "dt-body-right dt-head-right",
+        },
+        {
+            targets: 8,
+            orderable: false,
+            className: "dt-body-center dt-head-center",
+        },
+        {
+            targets: 9,
+            orderable: false,
+            className: "dt-body-center dt-head-center",
+            defaultContent: "",
+            render: function(data) {
+                return paymentDueAction();
+            },
+        },
+    ],
+    fixedColumns: {
+        right: 1,
+        left: 0,
+    },
+});
+
+$("#example1").DataTable({
+    data: [{
+            "Join Type": `And`,
+            Field: `Base Rate`,
+            Operator: `In List`,
+            Value: `Room Difference Changes`,
+        },
+        {
+            "Join Type": `And`,
+            Field: `Base Rate`,
+            Operator: `In List`,
+            Value: "CCm Category,Medication,DRG Category,Cardiopulmonary",
+        },
+    ],
+    columns: [{
+            data: "Join Type",
+        },
+        {
+            data: "Field",
+        },
+        {
+            data: "Operator",
+        },
+        {
+            data: "Value",
+        },
+        {
+            data: "",
+        },
+    ],
+    columnDefs: [{
+            targets: 0,
+            defaultContent: "",
+            render: function(data) {
+                if (data == "And") {
+                    return `<span
+                    class="btn btndefaultline dropdown-toggle d-inline-flex align-items-center bg-transparent border-0"
+                    type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <span class="subtitle fw500">${data}</span>
+                </span>`;
+                }
+            },
+        },
+        {
+            targets: 1,
+            defaultContent: "",
+            render: function(data) {
+                if (data == "Base Rate") {
+                    return `
+                    <span class="subtitle fw500">${data}</span>
+                `;
+                }
+            },
+        },
+
+        {
+            targets: 2,
+            render: function(data) {
+                if (data == "In List") {
+                    return `<span class="subtitle fw500">${data}</span>
+                    </span>`;
+                } {
+                    return `<span class="subtitle fw500">${data}</span>
+                    </span>`;
+                }
+            },
+        },
+        {
+            targets: 3,
+            render: function(data) {
+                if (data == "Room Difference Changes") {
+                    return `<span class="subtitle fw500">${data}</span>
+                    </span>`;
+                } else if (
+                    data == "CCm Category,Medication,DRG Category,Cardiopulmonary"
+                ) {
+                    return `<span class="subtitle fw500">${data}</span>
+                    </span>`;
+                }
+            },
+        },
+
+        {
+            targets: 4,
+            defaultContent: "",
+            render: function(data) {
+                return `<span class="material-symbols-outlined text-danger">delete</span>`;
+            },
+            className: "dt-head-center dt-body-center",
+        },
+    ],
+    paging: false,
+    searching: false,
+    info: false,
+    scrollX: true,
+    scrollCollapse: true,
+    ordering: false,
+    responsive: true,
+});
+
+$("#Criteriadatatable").DataTable({
+    data: [{
+            "Join Type": "",
+            Field: `Diagnosis - Code`,
+            Operator: "=",
+            Value: `A00.0 A00.1 A00.9`,
+        },
+        {
+            "Join Type": `And`,
+            Field: `Charges - Base Rate`,
+            Operator: ">",
+            Value: "1000",
+        },
+    ],
+    columns: [{
+            data: "Join Type",
+        },
+        {
+            data: "Field",
+        },
+        {
+            data: "Operator",
+        },
+        {
+            data: "Value",
+        },
+        {
+            data: " ",
+        },
+    ],
+    columnDefs: [{
+            targets: 0,
+            defaultContent: "",
+            render: function(data) {
+                if (data == "And") {
+                    return `<span
+                    class="btn btndefaultline dropdown-toggle d-inline-flex align-items-center"
+                    type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <span class="subtitle fw500 ">${data}</span>
+                </span>`;
+                }
+            },
+        },
+        {
+            targets: 1,
+            defaultContent: "",
+            render: function(data) {
+                if (data == "Diagnosis - Code") {
+                    return `<div class="col-lg-auto col-md-auto py-2">
+                    <button
+                        class="btn btndefaultline dropdown-toggle d-inline-flex align-items-center"
+                        type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <span class="subtitle fw500 ">Diagnosis - Code</span>
+                    </button>
+                    <ul class="dropdown-menu control menu-position dropdown-menu control"
+                        data-popper-placement="bottom-start"
+                        style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(919px, 106px);"
+                        data-popper-placement="bottom-start">
+                        <li>
+                            <a class="dropdown-item">
+                                <div class="d-flex justify-content-start">
+                                    <label
+                                        class="form-check-label customcheck d-flex align-items-center"
+                                        for="flexCheckDefault">
+                                        <input class="form-check-input"
+                                            type="checkbox" value="" id="Default">
+                                        <span class="checkinput"></span>
+                                    </label><span class="ms-2">Category</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item">
+                                <div class="d-flex justify-content-start">
+                                    <label
+                                        class="form-check-label customcheck d-flex align-items-center"
+                                        for="flexCheckDefault">
+                                        <input class="form-check-input"
+                                            type="checkbox" value=""
+                                            id="flexCheckDefault" checked="">
+                                        <span class="checkinput"></span>
+                                    </label><span class="ms-2">Code</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item">
+                                <div class="d-flex justify-content-start">
+                                    <label
+                                        class="form-check-label customcheck d-flex align-items-center"
+                                        for="flexCheckDefault">
+                                        <input class="form-check-input"
+                                            type="checkbox" value=""
+                                            id="flexCheckDefault" >
+                                        <span class="checkinput"></span>
+                                    </label><span class="ms-2">Type</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item">
+                                <div class="d-flex justify-content-start">
+                                    <label
+                                        class="form-check-label customcheck d-flex align-items-center"
+                                        for="flexCheckDefault">
+                                        <input class="form-check-input"
+                                            type="checkbox" value=""
+                                            id="flexCheckDefault" >
+                                        <span class="checkinput"></span>
+                                    </label><span class="ms-2">Order ID</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item">
+                            Charges
+                            </a>
+                        </li>
+                    </ul>
+                </div>`;
+                } else if (data == "Charges - Base Rate") {
+                    return `<span
+                    class="btn btndefaultline dropdown-toggle d-inline-flex align-items-center"
+                    type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <span class="subtitle fw500 ">Charges - Base Rate</span>
+                </span>`;
+                }
+            },
+        },
+
+        {
+            targets: 2,
+            render: function(data) {
+                if (data == "=") {
+                    return `<select class="form-select"><option>=</option></select>`;
+                } else if (data == ">") {
+                    return `<select class="form-select"><option>></option></select>`;
+                }
+            },
+        },
+        {
+            targets: 3,
+            render: function(data) {
+                if (data == "A00.0 A00.1 A00.9") {
+                    return `<span
+                    class="btn btndefaultline dropdown-toggle d-inline-flex align-items-center"
+                    type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <span class=' text-dark-1 bg-dark-5 badge-st px-2 mx-1'>A00.0</span>
+                    <span class=' text-dark-1 bg-dark-5 badge-st px-2 mx-1'>A00.1</span>
+                    <span class=' text-dark-1 bg-dark-5 badge-st px-2 mx-1'>A00.9</span>
+                </span>`;
+                } else if (data == "1000") {
+                    return `<select class="form-select "><option>${data}</option></select>'`;
+                }
+            },
+        },
+
+        {
+            targets: 4,
+            defaultContent: "",
+            render: function(data) {
+                return `<span class="material-symbols-outlined text-danger">delete</span>`;
+            },
+            className: "dt-head-center dt-body-center",
+        },
+    ],
+    paging: false,
+    searching: false,
+    info: false,
+    scrollX: true,
+    scrollCollapse: true,
+    ordering: false,
+    responsive: true,
+
+    footerCallback: function(row, data, start, end, display) {
+        var api = this.api(),
+            data;
+        $(api.column(1).footer()).html(
+            `<span class="text-info float-start d-inline-flex align-items-start minw150"><span class="material-symbols-outlined px-1">add</span>New Condition</span>`
+        );
+    },
+});
+$("#Criteriatableexample1").DataTable({
+    data: [{
+            "Join Type": "",
+            Field: `Diagnosis - Code`,
+            Operator: "=",
+            Value: `A00.0 A00.1 A00.9`,
+        },
+        {
+            "Join Type": `And`,
+            Field: `Charges - Base Rate`,
+            Operator: ">",
+            Value: "1000",
+        },
+    ],
+    columns: [{
+            data: "Join Type",
+        },
+        {
+            data: "Field",
+        },
+        {
+            data: "Operator",
+        },
+        {
+            data: "Value",
+        },
+        {
+            data: " ",
+        },
+    ],
+    columnDefs: [{
+            targets: 0,
+            defaultContent: "",
+            render: function(data) {
+                if (data == "And") {
+                    return `<span
+                    class="btn btndefaultline dropdown-toggle d-inline-flex align-items-center"
+                    type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <span class="subtitle fw500 ">${data}</span>
+                </span>`;
+                }
+            },
+        },
+        {
+            targets: 1,
+            defaultContent: "",
+            render: function(data) {
+                if (data == "Diagnosis - Code") {
+                    return `<div class="col-lg-auto col-md-auto py-2">
+                    <button
+                        class="btn btndefaultline dropdown-toggle d-inline-flex align-items-center"
+                        type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <span class="subtitle fw500 ">Diagnosis - Code</span>
+                    </button>
+                    <ul class="dropdown-menu control menu-position dropdown-menu control"
+                        data-popper-placement="bottom-start"
+                        style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(919px, 106px);"
+                        data-popper-placement="bottom-start">
+                        <li>
+                            <a class="dropdown-item">
+                                <div class="d-flex justify-content-start">
+                                    <label
+                                        class="form-check-label customcheck d-flex align-items-center"
+                                        for="flexCheckDefault">
+                                        <input class="form-check-input"
+                                            type="checkbox" value="" id="Default">
+                                        <span class="checkinput"></span>
+                                    </label><span class="ms-2">Category</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item">
+                                <div class="d-flex justify-content-start">
+                                    <label
+                                        class="form-check-label customcheck d-flex align-items-center"
+                                        for="flexCheckDefault">
+                                        <input class="form-check-input"
+                                            type="checkbox" value=""
+                                            id="flexCheckDefault" checked="">
+                                        <span class="checkinput"></span>
+                                    </label><span class="ms-2">Code</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item">
+                                <div class="d-flex justify-content-start">
+                                    <label
+                                        class="form-check-label customcheck d-flex align-items-center"
+                                        for="flexCheckDefault">
+                                        <input class="form-check-input"
+                                            type="checkbox" value=""
+                                            id="flexCheckDefault" >
+                                        <span class="checkinput"></span>
+                                    </label><span class="ms-2">Type</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item">
+                                <div class="d-flex justify-content-start">
+                                    <label
+                                        class="form-check-label customcheck d-flex align-items-center"
+                                        for="flexCheckDefault">
+                                        <input class="form-check-input"
+                                            type="checkbox" value=""
+                                            id="flexCheckDefault" >
+                                        <span class="checkinput"></span>
+                                    </label><span class="ms-2">Order ID</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item">
+                            Charges
+                            </a>
+                        </li>
+                    </ul>
+                </div>`;
+                } else if (data == "Charges - Base Rate") {
+                    return `<span
+                    class="btn btndefaultline dropdown-toggle d-inline-flex align-items-center"
+                    type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <span class="subtitle fw500 ">Charges - Base Rate</span>
+                </span>`;
+                }
+            },
+        },
+
+        {
+            targets: 2,
+            render: function(data) {
+                if (data == "=") {
+                    return `<select class="form-select"><option>=</option></select>`;
+                } else if (data == ">") {
+                    return `<select class="form-select"><option>></option></select>`;
+                }
+            },
+        },
+        {
+            targets: 3,
+            render: function(data) {
+                if (data == "A00.0 A00.1 A00.9") {
+                    return `<span
+                    class="btn btndefaultline dropdown-toggle d-inline-flex align-items-center"
+                    type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <span class=' text-dark-1 bg-dark-5 badge-st px-2 mx-1'>A00.0</span>
+                    <span class=' text-dark-1 bg-dark-5 badge-st px-2 mx-1'>A00.1</span>
+                    <span class=' text-dark-1 bg-dark-5 badge-st px-2 mx-1'>A00.9</span>
+                </span>`;
+                } else if (data == "1000") {
+                    return `<select class="form-select "><option>${data}</option></select>'`;
+                }
+            },
+        },
+
+        {
+            targets: 4,
+            defaultContent: "",
+            render: function(data) {
+                return `<span class="material-symbols-outlined text-danger">delete</span>`;
+            },
+            className: "dt-head-center dt-body-center",
+        },
+    ],
+    paging: false,
+    searching: false,
+    info: false,
+    scrollX: true,
+    scrollCollapse: true,
+    ordering: false,
+    responsive: true,
+
+    footerCallback: function(row, data, start, end, display) {
+        var api = this.api(),
+            data;
+        $(api.column(1).footer()).html(
+            `<span class="text-info float-start d-inline-flex align-items-start minw150"><span class="material-symbols-outlined px-1">add</span>New Condition</span>`
+        );
+    },
+});
+
+$("#payerdetailsruletable").DataTable({
+    data: [{
+            "Sl No": "1",
+            Name: `All Emergency Services`,
+        },
+        {
+            "Sl No": "2",
+            Name: `All In Patients and Daycare Services`,
+        },
+        {
+            "Sl No": "3",
+            Name: `Custom Rule Name`,
+        },
+    ],
+    columns: [{ data: "Sl No" }, { data: "Name" }, { data: "" }],
+    paging: false,
+    searching: false,
+    info: false,
+    scrollX: true,
+    scrollCollapse: true,
+    responsive: true,
+    columnDefs: [{
+            targets: 0,
+            orderable: false,
+            defaultContent: "",
+        },
+
+        {
+            targets: 1,
+            orderable: false,
+            render: function(data) {
+                if (data == "All Emergency Services") {
+                    return `<a  id="editpayer" href="#" class="text-info datablewidthselect">${data}</a>`;
+                } else if (data == "All In Patients and Daycare Services") {
+                    return `<a   href="#" class="text-info">${data}</a>`;
+                } else if (data == "Custom Rule Name") {
+                    return `<a  href="#" class="text-info">${data}</a>`;
+                }
+            },
+        },
+        {
+            targets: 2,
+            defaultContent: "",
+            className: "dt-body-right",
+            render: function(data) {
+                return `<span class="material-symbols-outlined">edit</span><span class="material-symbols-outlined text-danger">delete</span>`;
+            },
+        },
+    ],
+});
+
+$("#Criteriatabledata").DataTable({
+    data: [{
+            "Join Type": "",
+            Field: `Diagnosis - Code`,
+            Operator: "=",
+            Value: `A00.0 A00.1 A00.9`,
+        },
+        {
+            "Join Type": `And`,
+            Field: `Charges - Base Rate`,
+            Operator: ">",
+            Value: "1000",
+        },
+    ],
+    columns: [{
+            data: "Join Type",
+        },
+        {
+            data: "Field",
+        },
+        {
+            data: "Operator",
+        },
+        {
+            data: "Value",
+        },
+        {
+            data: " ",
+        },
+    ],
+    columnDefs: [{
+            targets: 0,
+            defaultContent: "",
+            render: function(data) {
+                if (data == "And") {
+                    return `<span
+                    class="btn btndefaultline dropdown-toggle d-inline-flex align-items-center"
+                    type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <span class="subtitle fw500 ">${data}</span>
+                </span>`;
+                }
+            },
+        },
+        {
+            targets: 1,
+            defaultContent: "",
+            render: function(data) {
+                if (data == "Diagnosis - Code") {
+                    return `<div class="col-lg-auto col-md-auto py-2">
+                    <button
+                        class="btn btndefaultline dropdown-toggle d-inline-flex align-items-center"
+                        type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <span class="subtitle fw500 ">Diagnosis - Code</span>
+                    </button>
+                    <ul class="dropdown-menu control menu-position dropdown-menu control"
+                        data-popper-placement="bottom-start"
+                        style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(919px, 106px);"
+                        data-popper-placement="bottom-start">
+                        <li>
+                            <a class="dropdown-item">
+                                <div class="d-flex justify-content-start">
+                                    <label
+                                        class="form-check-label customcheck d-flex align-items-center"
+                                        for="flexCheckDefault">
+                                        <input class="form-check-input"
+                                            type="checkbox" value="" id="Default">
+                                        <span class="checkinput"></span>
+                                    </label><span class="ms-2">Category</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item">
+                                <div class="d-flex justify-content-start">
+                                    <label
+                                        class="form-check-label customcheck d-flex align-items-center"
+                                        for="flexCheckDefault">
+                                        <input class="form-check-input"
+                                            type="checkbox" value=""
+                                            id="flexCheckDefault" checked="">
+                                        <span class="checkinput"></span>
+                                    </label><span class="ms-2">Code</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item">
+                                <div class="d-flex justify-content-start">
+                                    <label
+                                        class="form-check-label customcheck d-flex align-items-center"
+                                        for="flexCheckDefault">
+                                        <input class="form-check-input"
+                                            type="checkbox" value=""
+                                            id="flexCheckDefault" >
+                                        <span class="checkinput"></span>
+                                    </label><span class="ms-2">Type</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item">
+                                <div class="d-flex justify-content-start">
+                                    <label
+                                        class="form-check-label customcheck d-flex align-items-center"
+                                        for="flexCheckDefault">
+                                        <input class="form-check-input"
+                                            type="checkbox" value=""
+                                            id="flexCheckDefault" >
+                                        <span class="checkinput"></span>
+                                    </label><span class="ms-2">Order ID</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item">
+                            Charges
+                            </a>
+                        </li>
+                    </ul>
+                </div>`;
+                } else if (data == "Charges - Base Rate") {
+                    return `<span
+                    class="btn btndefaultline dropdown-toggle d-inline-flex align-items-center"
+                    type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <span class="subtitle fw500 ">Charges - Base Rate</span>
+                </span>`;
+                }
+            },
+        },
+
+        {
+            targets: 2,
+            render: function(data) {
+                if (data == "=") {
+                    return `<select class="form-select"><option>=</option></select>`;
+                } else if (data == ">") {
+                    return `<select class="form-select"><option>></option></select>`;
+                }
+            },
+        },
+        {
+            targets: 3,
+            render: function(data) {
+                if (data == "A00.0 A00.1 A00.9") {
+                    return `<span
+                    class="btn btndefaultline dropdown-toggle d-inline-flex align-items-center"
+                    type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <span class=' text-dark-1 bg-dark-5 badge-st px-2 mx-1'>A00.0</span>
+                    <span class=' text-dark-1 bg-dark-5 badge-st px-2 mx-1'>A00.1</span>
+                    <span class=' text-dark-1 bg-dark-5 badge-st px-2 mx-1'>A00.9</span>
+                </span>`;
+                } else if (data == "1000") {
+                    return `<select class="form-select "><option>${data}</option></select>'`;
+                }
+            },
+        },
+
+        {
+            targets: 4,
+            defaultContent: "",
+            render: function(data) {
+                return `<span class="material-symbols-outlined text-danger">delete</span>`;
+            },
+            className: "dt-head-center dt-body-center",
+        },
+    ],
+    paging: false,
+    searching: false,
+    info: false,
+    scrollX: true,
+    scrollCollapse: true,
+    ordering: false,
+    responsive: true,
+
+    footerCallback: function(row, data, start, end, display) {
+        var api = this.api(),
+            data;
+        $(api.column(1).footer()).html(
+            `<span class="text-info float-start d-inline-flex align-items-start minw150"><span class="material-symbols-outlined px-1">add</span>New Condition</span>`
+        );
+    },
+});
+
+$("#btn-search").on("click", function() {
+    $(this).toggleClass("d-none");
+    $(".patientsearch").toggleClass("d-none");
+});
+
+$(document).on("click", "#logout", function() {
+    alert("Logout Clicked");
+});
+
+$(document).on("click", "#discount", function() {
+    alert("Discount Clicked");
+});
+
+$("body").on("click", function(e) {
+    $('[data-bs-toggle="popover"]').each(function() {
+        if (!$(this).is(e.target) &&
+            $(this).has(e.target).length === 0 &&
+            $(".popover").has(e.target).length === 0
+        ) {
+            $(this).popover("hide");
+        }
+    });
+});
+
+$(".encmorebtn").on("click", function() {
+    $(this).text($(this).text() == "Show Less" ? "Show More" : "Show Less");
+    $(".encmoredetails").toggleClass("d-none");
+});
+//moni
+
+$(".RulesShow").hide();
+$("#IndividualPlan").hide();
+$("#BenefitPlan").hide();
+$("#CustomRule").hide();
+$("#RuleDetails").hide();
+$("#RuleEdit").hide();
+$("#newcomponent-service").hide();
+$("#newcomponent-medication").hide();
+$("#newcomponent-medicationEdit").hide();
+$("#newcomponent-serviceEdit").hide();
+$("#Bill-Install").hide();
+$("#Select").click(function() {
+    $("#RulesHide").hide();
+    $(".RulesShow").show();
+});
+
+$("#individualplan").click(function() {
+    $("#NewPayer").hide();
+    $("#IndividualPlan").show();
+    $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+});
+
+$(".backtopayer").click(function() {
+    $("#IndividualPlan").hide();
+    $("#NewPayer").show();
+});
+
+$("#benefitplan").click(function() {
+    $("#NewPayer").hide();
+    $("#BenefitPlan").show();
+});
+$("#newcomponent").click(function() {
+    $("#newchargeservice").hide();
+    $("#newcomponent-service").show();
+});
+$("#ServiceEdit").click(function() {
+    $("#newchargeservice").hide();
+    $("#newcomponent-serviceEdit").show();
+});
+$("#back").click(function() {
+    $("#newcomponent-service").hide();
+    $("#newchargeservice").show();
+});
+$(".backeditservice").click(function() {
+    $("#newcomponent-serviceEdit").hide();
+    $("#newchargeservice").show();
+});
+$("#medication").click(function() {
+    $("#newchargemedication").hide();
+    $("#newcomponent-medication").show();
+});
+$("#backmedication").click(function() {
+    $("#newcomponent-medication").hide();
+    $("#newchargemedication").show();
+});
+$("#editmedication").click(function() {
+    $("#newchargemedication").hide();
+    $("#newcomponent-medicationEdit").show();
+});
+$(".backeditmedication").click(function() {
+    $("#newcomponent-medicationEdit").hide();
+    $("#newchargemedication").show();
+});
+
+$("#backtoservice,#backtoservice1").click(function() {
+    $("#newcomponent-service").hide();
+    $("#newchargeservice").show();
+});
+
+$("#backtomedication , #backtomedication1").click(function() {
+    $("#newcomponent-medication").hide();
+    $("#newchargemedication").show();
+});
+$(".backtonewpayer").click(function() {
+    $("#BenefitPlan").hide();
+    $("#NewPayer").show();
+});
+$(
+    "#backtonewpayer1, #backtonewpayer2 , #backtonewpayer3,#backtonewpayer4, #backtonewpayer5, #backtonewpayer6"
+).click(function() {
+    $("#CustomRule").hide();
+    $("#IndividualPlan").hide();
+    $("#BenefitPlan").hide();
+    $("#NewPayer").show();
+});
+$("#new-installment").click(function() {
+    $("#Installment-Generate").hide();
+    $("#Bill-Install").show();
+});
+$("#backtoinstallment, #bttn1, #bttn2").click(function() {
+    $("#Bill-Install").hide();
+    $("#Installment-Generate").show();
+});
+
+$("#customrule").click(function() {
+    $("#NewPayer").hide();
+    $("#CustomRule").show();
+});
+
+$(".backtopayer").click(function() {
+    $("#CustomRule").hide();
+    $("#NewPayer").show();
+});
+
+$(".edit").click(function() {
+    $("#NewPayer").hide();
+    $("#RuleDetails").show();
+});
+$(".back").click(function() {
+    $("#RuleDetails").hide();
+    $("#NewPayer").show();
+});
+
+$("#editpayer").click(function() {
+    $("#PayerDetail").hide();
+    $("#RuleEdit").show();
+});
+$(".backpayer").click(function() {
+    $("#RuleEdit").hide();
+    $("#PayerDetail").show();
+});
+
+$("#Insurancepolicy").on("click", "#toggletable1", function() {
+    $(this).remove();
+    $("#Insurancepolicy").append(
+        `<span class="material-symbols-outlined mt-1 pointer" id="Down-arrow">expand_more</span>`
+    );
+    $(`<tr id="dropdowntable1">
+            <td></td>
+            <td class="py-4"><span class="material-symbols-outlined ms-5 float-start text-white border-0 rounded fs-4 me-2 p-1 bg-purple">image</span><span class="subtitle fw500">DIR-14711.png</span></td>
+            <td class="font16 lh3 fw400">02/06/2022 08:28</td>
+            <td class="font16 lh3 fw400">Shaikh Mohammed</td>
+            <td class="font16 lh3 fw400">9813KB</td>
+            <td class="text-center"><span class="material-symbols-outlined text-black me-5">more_horiz</span></td>
+        </tr>
+        <tr id="dropdowntable2">
+            <td></td>
+            <td class="pb-4"><span class="material-symbols-outlined ms-5 float-start text-white border-0 rounded fs-4 me-2 p-1 bg-purple">image</span><span class="subtitle fw500">DIR-14711.png</span></td>
+            <td class="font16 lh3 fw400">02/06/2022 08:28</td>
+            <td class="font16 lh3 fw400">Shaikh Mohammed</td>
+            <td class="font16 lh3 fw400">9813KB</td>
+            <td class="text-center"><span class="material-symbols-outlined text-black me-5">more_horiz</span></td>
+        </tr>
+        <tr id="dropdowntable3">
+            <td></td>
+            <td class="pb-4"><span class="material-symbols-outlined ms-5 float-start text-white border-0 rounded fs-4 me-2 p-1 bg-purple">image</span><span class="subtitle fw500">DIR-14711.png</span></td>
+            <td class="font16 lh3 fw400">02/06/2022 08:28</td>
+            <td class="font16 lh3 fw400">Shaikh Mohammed</td>
+            <td class="font16 lh3 fw400">9813KB</td>
+            <td class="text-center"><span class="material-symbols-outlined text-black me-5">more_horiz</span></td>
+        </tr>
+        <tr id="dropdowntable4" class="border-bottom border-ultra-light-grey">
+            <td class="pb-5"></td>
+            <td><span class="material-symbols-outlined ms-5 float-start text-white border-0 rounded fs-4 me-2 p-1 bg-purple">image</span><span class="subtitle fw500">DIR-14711.png</span></td>
+            <td class="font16 lh3 fw400">02/06/2022 08:28</td>
+            <td class="font16 lh3 fw400">Shaikh Mohammed</td>
+            <td class="font16 lh3 fw400">9813KB</td>
+            <td class="text-center"><span class="material-symbols-outlined text-black me-5">more_horiz</span></td>
+        </tr>`).insertAfter("#appending");
+});
+$("#Insurancepolicy").on("click", "#Down-arrow", function() {
+    $(this).remove();
+    $("#Insurancepolicy").append(
+        `<span class="material-symbols-outlined mt-1 pointer" id="toggletable1">chevron_right</span>`
+    );
+    $(
+        "#dropdowntable1 ,#dropdowntable2,#dropdowntable3,#dropdowntable4"
+    ).remove();
+});
+$("#closehealth").click(function() {
+    $("#Health").remove();
+});
+$("#closeinsurance").click(function() {
+    $("#Insurance").remove();
+});
+
+//new
+$(window).on("load", function() {
+    var ScreenResolution = $(window).width();
+    if (ScreenResolution <= 1500) {
+        var table = $("#example1").DataTable();
+        table.columns.adjust().draw();
+        var Rulestable = $("#Rulestable").DataTable();
+        Rulestable.columns.adjust().draw();
+        var billattchtable = $("#billattchtable").DataTable();
+        billattchtable.columns.adjust().draw();
+    }
+});
+
+$(".enablereorder").on("click", function() {
+    $("#sortable").sortable({
+        axis: "y",
+        //revert: 500,
+        //cancel: "#cancelreorder",
+        connectWith: ".sortable",
+        stop: function(event, ui) {
+            $(".sortable").each(function() {
+                $(".sortable .payerdetail ").each(function() {
+                    var index = $(this).index() + 1;
+                    $(this).find(".payorder").text(index);
+                });
+            });
+        },
+    });
+    $(".payeractionbtn").addClass("d-none");
+    $(".savereorder").removeClass("d-none");
+});
+
+$("#savereorder").on("click", function() {
+    $("#sortable").sortable("destroy");
+    $(".savereorder").addClass("d-none");
+    $(".payeractionbtn").removeClass("d-none");
+});
+
+$("#cancelreorder").on("click", function() {
+    $("#sortable").sortable("cancel");
+    $(".sortable .payerdetail ").each(function() {
+        var index = $(this).index() + 1;
+        $(this).find(".payorder").text(index);
+    });
+    $("#sortable").sortable("destroy");
+    $(".savereorder").addClass("d-none");
+    $(".payeractionbtn").removeClass("d-none");
+});
+$(".btnfull").on("click", function(event) {
+    event.stopPropagation();
+    $(this).parents(".offcanvas").toggleClass("fullscreen");
+    if ($(this).text() == "open_in_full") {
+        $(this).text("close_fullscreen");
+    } else {
+        $(this).text("open_in_full");
+    }
+});
+
+// $(".test").click(function(event) {
+//     alert("g");
+//     event.stopPropagation();
+// });
